@@ -4,4 +4,61 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="NoticeMapper">
 
+<resultMap type="Notice" id="noticeResultMap">
+  		<id property="noticeNo" column="NOTICE_NO"/>
+  		<result property="noticeName" column="NOTICE_NAME"/>
+  		<result property="noticeWriter" column="NOTICE_WRITER"/>
+  		<result property="noticeContent" column="NOTICE_CONTENT"/>
+  		<result property="NoticeDate" column="NOTICE_DATE"/>
+  		<result property="UpdateDate" column="UPDATE_DATE"/>
+  		<result property="noticeFileName" column="FILE_NAME"/>
+  		<result property="noticeFileRename" column="FILE_RENAME"/>
+  		<result property="noticeFilepath" column="FILE_PATH"/>
+  		<result property="noticeFileSize" column="FILE_SIZE"/>
+  	
+  	</resultMap>
+
+	<insert id="insertNotice">
+<!-- 	(SELECT * FROM NOTICE_TBL JOIN NOTICE_IMG_TBL USING(NOTICE_NO)) -->
+  		INSERT INTO NOTICE_TBL
+  		VALUES(SEQ_NOTICE_NO.NEXTVAL, #{noticeName}, #{noticeWriter}, #{noticeContent}, DEFAULT, DEFAULT)
+  	</insert>
+  	
+  	<insert id="insertNoticeImg">
+  	INSERT INTO NOTICE_IMG_TBL
+  		VALUES(SEQ_NOTICE_NO.CURRVAL, #{noticeFileName}, #{noticeFileRename}, #{noticeFilepath}, #{noticeFileSize})
+  	</insert>
+  	
+	<update id="updateNotice">
+  	UPDATE NOTICE_TBL
+  	SET NOTICE_NAME = #{noticeName }, NOTICE_CONTENT = #{noticeContent }
+  	, UPDATE_DATE = DEFAULT
+  	WHERE NOTICE_NO = #{noticeNo }
+  	</update>
+  	
+  	<update id="updateNoticeImg">
+  	UPDATE NOTICE_IMG_TBL
+  	SET NOTICE_FILENAME = #{noticeFileName }, NOTICE_FILERENAME = #{noticeFileRename }
+  	,NOTICE_FILEPATH = #{noticeFilepath }, NOTICE_FILESIZE = #{noticeFileSize }
+  	WHERE NOTICE_NO = #{noticeNo }
+  	</update>
+  	
+  	<delete id="deleteNotice">
+  		DELETE FROM NOTICE_TBL WHERE NOTICE_NO = #{noticeNo }
+  	</delete>
+  	
+  	
+  	
+  	
+  	<select id="selectNoticeByNo" resultMap="noticeResultMap">
+  		SELECT * FROM NOTICE_TBL WHERE NOTICE_NO = #{noticeNo }
+  	</select>
+
+	<select id="selectTotalCount" resultType="_int">
+  		SELECT COUNT(*) FROM NOTICE_TBL
+  	</select>
+
+	<select id="selectNotice" resultMap="noticeResultMap">
+  		SELECT * FROM NOTICE_TBL ORDER BY NOTICE_NO DESC
+  	</select>
 </mapper>
