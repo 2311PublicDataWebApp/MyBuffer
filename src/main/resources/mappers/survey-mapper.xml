@@ -3,5 +3,20 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="SurveyMapper">
-
+	<select id="selectRecommendation" resultMap="productResultMap">
+		SELECT * FROM PRODUCT_TBL LEFT OUTER JOIN PRODUCT_IMG_TBL USING(PRODUCT_NO) WHERE AGE_CODE = #{surveyAge }
+	</select>
+	<resultMap type="Product" id="productResultMap">
+		<id property="productNo" column="PRODUCT_NO"/>
+		<result property="productName" column="PRODUCT_NAME"/>
+		<result property="brandName" column="BRAND_NAME"/>
+		<result property="price" column="PRICE"/>
+		<result property="servingSize" column="SERVING_SIZE"/>
+		<result property="expiredDate" column="EXPIRED_DATE"/>
+		<result property="ageCode" column="AGE_CODE"/>
+		<result property="productFileName" column="FILE_NAME"/>
+		<result property="productFileRename" column="FILE_RENAME"/>
+		<result property="productFilePath" column="FILE_PATH"/>
+		<result property="productFileSize" column="FILE_LENGTH"/>
+	</resultMap>
 </mapper>
