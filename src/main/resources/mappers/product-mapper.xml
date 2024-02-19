@@ -3,5 +3,47 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ProductMapper">
-
+	<resultMap type="Product" id="productResultMap">
+        <id 	 	property="productNo" 			column="PRODUCT_NO" />
+        <result property="productName" 			column="PRODUCT_NAME"/>
+        <result property="brandName" 			column="BRAND_NAME"/>
+        <result property="price" 				column="PRICE"/>
+        <result property="servingSize" 			column="SERVING_SIZE"/>
+        <result property="expiredDate" 			column="EXPIRED_DATE"/>
+        <result property="ageCode" 				column="AGE_CODE"/>
+        <result property="productFileName"		column="FILE_NAME"/>
+  		<result property="productFileRename" 	column="FILE_RENAME"/>
+  		<result property="productFilePath" 		column="FILE_PATH"/>
+  		<result property="productFileSize" 		column="FILE_LENGTH"/>
+    </resultMap>
+    <select id="selectTotalCount" resultType="_int">
+    	SELECT COUNT(*) FROM PRODUCT_TBL
+    </select>
+    <select id="selectProductList" resultMap="productResultMap">
+    	SELECT * FROM PRODUCT_TBL LEFT OUTER JOIN PRODUCT_IMG_TBL USING (PRODUCT_NO) ORDER BY PRODUCT_NO DESC
+    </select>
+    <select id="selectProductByNo" resultMap="productResultMap">
+    	SELECT * FROM PRODUCT_TBL LEFT OUTER JOIN PRODUCT_IMG_TBL ON PRODUCT_TBL.PRODUCT_NO = PRODUCT_IMG_TBL.PRODUCT_NO WHERE PRODUCT_TBL.PRODUCT_NO = #{productNo }
+    </select>
+<!--     <select id="selectProductImgByNo" resultMap="productResultMap"> -->
+<!--     	SELECT * FROM PRODUCT_IMG_TBL WHERE PRODUCT_NO = #{productNo } -->
+<!--     </select> -->
+    <insert id="insertProduct">
+    	INSERT INTO PRODUCT_TBL VALUES(SEQ_PRODUCT_NO.NEXTVAL, #{productName }, #{brandName }, #{price }, #{servingSize }, TO_DATE(#{expiredDate },'YY/MM/DD'), #{ageCode })
+    </insert>
+    <insert id="insertProductImg">
+  		INSERT INTO PRODUCT_IMG_TBL VALUES(SEQ_PRODUCT_NO.CURRVAL, #{productFileName}, #{productFileRename}, #{productFilePath}, #{productFileSize})
+  	</insert>
+    <update id="modifyProduct">
+    	UPDATE PRODUCT_TBL SET PRODUCT_NAME = #{productName }, BRAND_NAME = #{brandName }, PRICE = #{price }, SERVING_SIZE = #{servingSize }, EXPIRED_DATE = TO_DATE(#{expiredDate },'YY/MM/DD'), AGE_CODE = #{ageCode } WHERE PRODUCT_NO = #{productNo }
+    </update>
+    <update id="modifyProductImg">
+	  	UPDATE PRODUCT_IMG_TBL SET FILE_NAME = #{productFileName }, FILE_RENAME = #{productFileRename }, FILE_PATH = #{productFilePath }, FILE_LENGTH = #{productFileSize } WHERE PRODUCT_NO = #{productNo }
+  	</update>
+  	<delete id="deleteProductImg">
+  		DELETE FROM PRODUCT_IMG_TBL WHERE PRODUCT_NO = #{productNo }
+  	</delete>
+  	<delete id="deleteProduct">
+  		DELETE FROM PRODUCT_TBL WHERE PRODUCT_NO = #{productNo }
+  	</delete>
 </mapper>
