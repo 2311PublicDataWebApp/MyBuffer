@@ -33,7 +33,7 @@ public class ProductController {
 	/**
 	 * 게시물 등록 페이지, /product/insert.kr을 주소표시줄에 입력하면 insert.jsp가 나타나도록
 	 */
-	@RequestMapping(value = "/product/insert.kr", method = RequestMethod.GET)
+	@RequestMapping(value = "/product/insert.do", method = RequestMethod.GET)
 	public String showInsertForm(Model model) {
 		return "product/insert";
 	}
@@ -41,7 +41,7 @@ public class ProductController {
 	/**
 	 * 게시물 등록 POST
 	 */
-	@RequestMapping(value = "/product/insert.kr", method = RequestMethod.POST)
+	@RequestMapping(value = "/product/insert.do", method = RequestMethod.POST)
 	public String insertProduct(Model model
 			, @RequestParam(value="uploadFile", required = false) MultipartFile uploadFile
 			, @ModelAttribute ProductVO product
@@ -70,7 +70,7 @@ public class ProductController {
 			}
 			int result = pService.insertProduct(product);
 			if (result > 0) {
-				return "redirect:/product/list.kr";
+				return "redirect:/product/list.do";
 			} else {
 				model.addAttribute("msg", "요청하신 서비스가 완료되지 못했습니다.");
 				return "common/errorPage";
@@ -85,7 +85,7 @@ public class ProductController {
 	/**
 	 * 게시물 상세 페이지
 	 */
-	@RequestMapping(value = "/product/productDetail.kr", method = RequestMethod.GET)
+	@RequestMapping(value = "/product/productDetail.do", method = RequestMethod.GET)
 	public ModelAndView showDetailForm(ModelAndView mv, int productNo) {
 		try {	
 			ProductVO product = pService.selectProductByNo(productNo);
@@ -106,7 +106,7 @@ public class ProductController {
 	/**
 	 * 게시물 수정 페이지
 	 */
-	@RequestMapping(value = "/product/modify.kr", method = RequestMethod.GET)
+	@RequestMapping(value = "/product/modify.do", method = RequestMethod.GET)
 	public String showModifyForm(Model model, int productNo) {
 			ProductVO product = pService.selectProductByNo(productNo);
 			model.addAttribute("product", product);
@@ -116,7 +116,7 @@ public class ProductController {
 	/**
 	 * 게시물 수정 POST
 	 */
-	@RequestMapping(value = "/product/modify.kr", method = RequestMethod.POST)
+	@RequestMapping(value = "/product/modify.do", method = RequestMethod.POST)
 	public ModelAndView modifyProduct(ModelAndView mv
 			, @ModelAttribute ProductVO product
 			, @RequestParam(value = "reloadFile", required = false) MultipartFile reloadFile
@@ -138,7 +138,7 @@ public class ProductController {
 			}
 			int result = pService.modifyProduct(product);
 			if (result > 0) {
-				mv.setViewName("redirect:/product/list.kr");
+				mv.setViewName("redirect:/product/list.do");
 			} else {
 				mv.addObject("msg", "요청하신 서비스가 완료되지 못했습니다.");
 				mv.setViewName("common/errorPage");
@@ -153,12 +153,12 @@ public class ProductController {
 	/**
 	 * 게시물 삭제
 	 */
-	@RequestMapping(value = "/product/delete.kr", method = RequestMethod.GET)
+	@RequestMapping(value = "/product/delete.do", method = RequestMethod.GET)
 	public ModelAndView deleteProduct(ModelAndView mv, int productNo) {
 		try {
 			int result = pService.deleteProduct(productNo);
 			if (result > 0) {
-				mv.setViewName("redirect:/product/list.kr");
+				mv.setViewName("redirect:/product/list.do");
 			} else {
 				mv.addObject("msg", "요청하신 서비스가 완료되지 못했습니다.");
 				mv.setViewName("common/errorPage");
@@ -173,7 +173,7 @@ public class ProductController {
 	/**
 	 * 게시물 리스트 목록 GET
 	 */
-	@RequestMapping(value = "/product/list.kr", method = RequestMethod.GET)
+	@RequestMapping(value = "/product/list.do", method = RequestMethod.GET)
 	public String showProductList(Model model
 			, HttpServletRequest request
 			, @RequestParam(value = "page", required = false, defaultValue = "1") Integer currentPage) {

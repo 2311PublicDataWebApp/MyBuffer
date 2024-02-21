@@ -8,15 +8,25 @@ public class ProductVO {
 	private int servingSize;
 	private String expiredDate;
 	private String ageCode;
+	private String gender;
+	private String caution;
+	private String description;
+	private String description1;
+	private String description2;
+	private String description3;
 	private String productFileName;
 	private String productFileRename;
 	private String productFilePath;
 	private long productFileSize;
+	private String ingredientCode;
+	private String ingredientName;
+	private String servingAmount;
+	private String servingUnit;
 
 	public ProductVO() {
 
 	}
-	
+
 	public int getProductNo() {
 		return productNo;
 	}
@@ -73,6 +83,54 @@ public class ProductVO {
 		this.ageCode = ageCode;
 	}
 
+	public String getGender() {
+		return gender;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+
+	public String getCaution() {
+		return caution;
+	}
+
+	public void setCaution(String caution) {
+		this.caution = caution;
+	}
+	
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	
+	public String getDescription1() {
+		return description1;
+	}
+
+	public void setDescription1(String description1) {
+		this.description1 = description1;
+	}
+
+	public String getDescription2() {
+		return description2;
+	}
+
+	public void setDescription2(String description2) {
+		this.description2 = description2;
+	}
+
+	public String getDescription3() {
+		return description3;
+	}
+
+	public void setDescription3(String description3) {
+		this.description3 = description3;
+	}
+
 	public String getProductFileName() {
 		return productFileName;
 	}
@@ -105,12 +163,49 @@ public class ProductVO {
 		this.productFileSize = productFileSize;
 	}
 
+	public String getIngredientCode() {
+		return ingredientCode;
+	}
+
+	public void setIngredientCode(String ingredientCode) {
+		this.ingredientCode = ingredientCode;
+	}
+
+	public String getIngredientName() {
+		return ingredientName;
+	}
+
+	public void setIngredientName(String ingredientName) {
+		this.ingredientName = ingredientName;
+	}
+
+	public String getServingAmount() {
+		return servingAmount;
+	}
+
+	public void setServingAmount(String servingAmount) {
+		this.servingAmount = servingAmount;
+	}
+
+	public String getServingUnit() {
+		return servingUnit;
+	}
+
+	public void setServingUnit(String servingUnit) {
+		this.servingUnit = servingUnit;
+	}
+
 	@Override
 	public String toString() {
 		return "ProductVO [productNo=" + productNo + ", productName=" + productName + ", brandName=" + brandName
 				+ ", price=" + price + ", servingSize=" + servingSize + ", expiredDate=" + expiredDate + ", ageCode="
-				+ ageCode + ", productFileName=" + productFileName + ", productFileRename=" + productFileRename
-				+ ", productFilePath=" + productFilePath + ", productFileSize=" + productFileSize + "]";
+				+ ageCode + ", gender=" + gender + ", caution=" + caution + ", description=" + description
+				+ ", description1=" + description1 + ", description2=" + description2 + ", description3=" + description3
+				+ ", productFileName=" + productFileName + ", productFileRename=" + productFileRename
+				+ ", productFilePath=" + productFilePath + ", productFileSize=" + productFileSize + ", ingredientCode="
+				+ ingredientCode + ", ingredientName=" + ingredientName + ", servingAmount=" + servingAmount
+				+ ", servingUnit=" + servingUnit + "]";
 	}
+
 
 }

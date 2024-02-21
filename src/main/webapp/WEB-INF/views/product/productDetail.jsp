@@ -17,7 +17,7 @@
 				<div class="d-flex">
 					<ul class="nav">
 						<li class="nav-item">
-							<a class="nav-link active" aria-current="page" href="#">
+							<a class="nav-link active" aria-current="page" href="/">
 								<img src="../resources/img/logo.png" style="height: 40px;" alt="No Image">
 							</a>
 						</li>
@@ -31,17 +31,19 @@
 						</svg>
 					</button>
 					<ul class="dropdown-menu">
-						<c:if test="${session.memberId eq null }">
-							<li><a class="dropdown-item" href="#">로그인</a></li>
-							<li><a class="dropdown-item" href="#">회원가입</a></li>
+						<c:if test="${memberId eq null }">
+							<li><a class="dropdown-item" href="/member/login.do">로그인</a></li>
+							<li><a class="dropdown-item" href="/member/register.do">회원가입</a></li>
 						</c:if>
-						<c:if test="${session.memberId ne null }">
-							<c:if test="${session.memberId ne 'admin' }">
-								<li><a class="dropdown-item" href="#">회원 정보수정</a></li>
+						<c:if test="${memberId ne null }">
+							<c:if test="${memberId ne 'admin' }">
+								<li><a class="dropdown-item" href="/member/logout.do">로그아웃</a></li>
+								<li><a class="dropdown-item" href="/member/updatemember.do">정보 수정</a></li>
 							</c:if>
-							<c:if test="${session.memberId eq 'admin' }">
-								<li><a class="dropdown-item" href="#">회원 목록</a></li>
-								<li><a class="dropdown-item" href="#">제품 목록</a></li>
+							<c:if test="${memberId eq 'admin' }">
+								<li><a class="dropdown-item" href="/member/logout.do">로그아웃</a></li>
+								<li><a class="dropdown-item" href="/member/list.do">회원 목록</a></li>
+								<li><a class="dropdown-item" href="/product/list.do">제품 목록</a></li>
 							</c:if>
 						</c:if>
 					</ul>
@@ -68,9 +70,12 @@
 						<fmt:formatDate value="${expiredDate }" pattern="yyyy년 MM월 dd일"  var="eDate"/>
 						<p>${eDate }</p>
 						<hr>
-						<p>판매가격	₩ ${product.price }</p>
+						<div class="row d-grid gap-5 d-flex justify-content-center">
+							<p>판매가격</p>
+							<h3>₩${product.price }</h3>
+						</div>
 						<div class="my-5 d-grid gap-5 d-md-flex justify-content-md-center">
-							<button type="submit" class="btn btn-lg rounded-pill shadow-sm" style="width: 250px; height: 55px; background-color: #04D9C4; color: #ffffff;">구매하기</button>
+							<button type="button" class="btn btn-lg rounded-pill shadow-sm" style="width: 250px; height: 55px; background-color: #04D9C4; color: #ffffff;" onclick="checkLogin('${memberId}', ${product.productNo });">구매하기</button>
 						</div>
 					</div>
 				</div>
@@ -79,29 +84,37 @@
 						<div class="m-5">
 							<h5>제품 설명란</h5>
 							<br>
-							<p>
-								밀크시슬은 수 세기 동안 전통적인 약초학자들이 사용해 왔습니다. 
-								과학적 연구에 따르면 밀크시슬에 포함된 성분은 건강한 간 기능을 증진할 수 있다고 합니다.
-								이 베지 포뮬라에는 건강에 이로운 아티초크 및 민들레도 포함되어 있습니다.
-							</p>
-							<p>
-								밀크시슬은 수 세기 동안 전통적인 약초학자들이 사용해 왔습니다. 
-								과학적 연구에 따르면 밀크시슬에 포함된 성분은 건강한 간 기능을 증진할 수 있다고 합니다.
-								이 베지 포뮬라에는 건강에 이로운 아티초크 및 민들레도 포함되어 있습니다.
-							</p>
-							<p>
-								밀크시슬은 수 세기 동안 전통적인 약초학자들이 사용해 왔습니다. 
-								과학적 연구에 따르면 밀크시슬에 포함된 성분은 건강한 간 기능을 증진할 수 있다고 합니다.
-								이 베지 포뮬라에는 건강에 이로운 아티초크 및 민들레도 포함되어 있습니다.
-							</p>
+							<c:if test="${product.description1 ne null}">
+								<p>${product.description1 }</p>
+							</c:if>
+							<c:if test="${product.description2 ne null}">
+								<p>${product.description2 }</p>
+							</c:if>
+							<c:if test="${product.description3 ne null}">
+								<p>${product.description3 }</p>
+							</c:if>
+							<br>
+							<h6>권장 복용법</h6>
+							<p>${product.description }</p>
+							<h6>주의사항</h6>
+							<p>${product.caution }</p>
 						</div>
 					</div>
 				</div>
 			</main>
 		</div>
-		<footer >
-			<img src="../resources/img/footer.jpg">
+		<footer>
+			<img src="../resources/img/footer.png">
 		</footer>
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+        <script>
+            function checkLogin(memberId, productNo) {
+                if(memberId != '') {
+                    location.href="/survey/purchase.do?productNo=" + productNo + "&memberId=" + memberId;
+                } else {
+                    alert("로그인 후 이용가능한 서비스입니다.")
+                }
+            }
+        </script>
 	</body>
 </html>
