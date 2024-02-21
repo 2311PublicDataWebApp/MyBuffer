@@ -9,7 +9,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.kh.buffer.member.domain.MemberVO;
+import com.kh.buffer.member.service.MemberService;
 import com.kh.buffer.product.domain.ProductVO;
+import com.kh.buffer.product.service.ProductService;
+import com.kh.buffer.survey.domain.OrderVO;
 import com.kh.buffer.survey.domain.SurveyVO;
 import com.kh.buffer.survey.service.SurveyService;
 
@@ -18,6 +22,10 @@ public class SurveyController {
 	
 	@Autowired
 	private SurveyService sService;
+	@Autowired
+	private ProductService pService;
+	@Autowired
+	private MemberService mService;
 	
 	@RequestMapping(value = "/survey/insert.do", method = RequestMethod.GET)
 	public String showSurveyForm(Model model) {
@@ -27,22 +35,56 @@ public class SurveyController {
 	@RequestMapping(value = "/survey/insert.do", method = RequestMethod.POST)
 	public String submitSurvey(Model model
 			, @ModelAttribute SurveyVO survey) {
-		List<ProductVO> pList = sService.submitSurvey(survey);
-		if (pList != null) {
-			model.addAttribute("pList", pList);
-		} else {
-			
+		try {
+			List<ProductVO> pList = sService.submitSurvey(survey);
+			if (pList != null) {
+				model.addAttribute("pList", pList);
+			} else {
+				model.addAttribute("msg", "No Data Found");
+				return "common/errorPage";
+			}			
+		} catch (Exception e) {
+			model.addAttribute("msg", e.getMessage());
+			return "common/errorPage";
 		}
 		return "survey/recommendation";
 	}
 	
 	@RequestMapping(value = "/survey/purchase.do", method = RequestMethod.GET)
-	public String showPurchase(Model model) {
+	public String showPurchase(String memberId, int productNo, Model model) {
+		try {
+			ProductVO product = pService.selectProductByNo(productNo);
+			MemberVO member = mService.getOneById(memberId);
+			if (product != null) {
+				model.addAttribute("product", product);
+				model.addAttribute("member", member);
+			} else {
+				model.addAttribute("msg", "No Data Found");
+				return "common/errorPage";
+			}
+		} catch (Exception e) {
+			model.addAttribute("msg", e.getMessage());
+			return "common/errorPage";
+		}
 		return "survey/purchase";
 	}
 	
 	@RequestMapping(value = "/survey/complete.do", method = RequestMethod.POST)
-	public String showComplete() {
-		return "";
+	public String showComplete(Model model, @ModelAttribute OrderVO order) {
+		try {
+			int result = sService.insertOrder(order);
+			if (result > 0) {
+				int orderNo = sService.getCurrVal();
+				OrderVO orderOne = sService.selectOneByNo(orderNo);
+				model.addAttribute("order", orderOne);
+			} else {
+				model.addAttribute("msg", "No Data Found");
+				return "common/errorPage";
+			}
+		} catch (Exception e) {
+			model.addAttribute("msg", e.getMessage());
+			return "common/errorPage";
+		}
+		return "survey/complete";
 	}
 }

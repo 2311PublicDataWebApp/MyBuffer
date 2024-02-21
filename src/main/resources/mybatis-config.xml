@@ -12,6 +12,7 @@
 		<typeAlias type="com.kh.buffer.notice.domain.NoticeVO" alias="Notice"/>
 		<typeAlias type="com.kh.buffer.product.domain.ProductVO" alias="Product"/>
 		<typeAlias type="com.kh.buffer.survey.domain.SurveyVO" alias="Survey"/>
+		<typeAlias type="com.kh.buffer.survey.domain.OrderVO" alias="Order"/>
 	</typeAliases>
 	<mappers>
 		<!-- mapper.xml이 생성될 때마다 추가 -->

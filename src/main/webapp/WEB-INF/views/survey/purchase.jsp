@@ -17,7 +17,7 @@
 					<div class="d-flex">
 						<ul class="nav">
 							<li class="nav-item">
-								<a class="nav-link active" aria-current="page" href="#">
+								<a class="nav-link active" aria-current="page" href="/">
 									<img src="../resources/img/logo.png" style="height: 40px;" alt="No Image">
 								</a>
 							</li>
@@ -32,16 +32,18 @@
 						</button>
 						<ul class="dropdown-menu">
 							<c:if test="${memberId eq null }">
-								<li><a class="dropdown-item" href="#">로그인</a></li>
-								<li><a class="dropdown-item" href="#">회원가입</a></li>
+								<li><a class="dropdown-item" href="/member/login.do">로그인</a></li>
+								<li><a class="dropdown-item" href="/member/register.do">회원가입</a></li>
 							</c:if>
 							<c:if test="${memberId ne null }">
-								<c:if test="${session.memberId ne 'admin' }">
-									<li><a class="dropdown-item" href="#">회원 정보수정</a></li>
+								<c:if test="${memberId ne 'admin' }">
+									<li><a class="dropdown-item" href="/member/logout.do">로그아웃</a></li>
+									<li><a class="dropdown-item" href="/member/updatemember.do">정보 수정</a></li>
 								</c:if>
 								<c:if test="${memberId eq 'admin' }">
-									<li><a class="dropdown-item" href="#">회원 목록</a></li>
-									<li><a class="dropdown-item" href="#">제품 목록</a></li>
+									<li><a class="dropdown-item" href="/member/logout.do">로그아웃</a></li>
+									<li><a class="dropdown-item" href="/member/list.do">회원 목록</a></li>
+									<li><a class="dropdown-item" href="/product/list.do">제품 목록</a></li>
 								</c:if>
 							</c:if>
 						</ul>
@@ -49,89 +51,125 @@
 				</nav>
 			</header>
             <main class="my-5 px-5 mx-5">
-				<div class="my-5">
-                    <h2>배송지</h2>
-                    <p>주소 이름</p>
-                    <p>전화번호</p>
-                    <p>주소</p>
-                </div>
-                <div class="my-5">
-					<div>
-						<h2>주문상품</h2>
-					</div>
-					<div class="row">
-						<div class="col-4">
-							<img src="../resources/puploadFiles/${product.productFileRename }" alt="No Image">
-						</div>
-						<div class="col-8">
-							<div>
-								<h4 class="mb-4">제품 이름</h4>
-							</div>
-							<div class="row pt-5">
-								<p class="col-4">주문금액</p>
-								<p class="col-4">24000원</p>
-								<p class="col-4"></p>
-							</div>
-						</div>
-					</div>
-                </div>
 				<form action="/survey/complete.do" method="post">
-                <div class="my-5">
-                    <h2>구매방식</h2>
-                    <div class="form-check">
-						<input class="form-check-input" type="radio" name="mutongjang" id="mutongjang">
-						<label class="form-check-label" for="mutongjang">
-							무통장입금
-						</label>
+					<div class="my-5">
+	                    <h2>배송지</h2>
+	                    <input type="hidden" name="memberId" value="${member.memberId }">
+	                    <div class="col-5">
+							<div class="input-group my-3">
+								<span class="input-group-text" id="basic-addon1">이름 </span>
+								<input type="text" class="form-control" name="memberName" placeholder="이름" aria-label="Username" aria-describedby="basic-addon1" value="${member.memberName }">
+							</div>
+						</div>
+						<div class="col-5">
+							<div class="input-group my-3">
+								<span class="input-group-text" id="basic-addon1">전화번호 </span>
+								<input type="text" class="form-control" name="memberPhone" placeholder="전화번호" aria-label="Username" aria-describedby="basic-addon1" value="${member.memberPhone }">
+							</div>
+						</div>
+						<div class="col-9">
+							<div class="input-group">
+								<input class="form-control" type="text" name="memberAddress" id="roadAddress" placeholder="도로명주소" value="${member.memberAddress }">
+								<button class="btn btn-outline-secondary" type="button" onclick="findAddress()">우편번호 찾기</button>
+							</div>
+						</div>
+	                </div>
+					<div class="my-5">
+						<div>
+							<h2>주문상품</h2>
+							<input type="hidden" name="productNo" value="${product.productNo }">
+							<input type="hidden" name="price" value="${product.price }">
+						</div>
+						<div class="row">
+							<div class="col-4">
+								<img src="../resources/puploadFiles/${product.productFileRename }" alt="No Image">
+							</div>
+							<div class="col-8">
+								<div>
+									<h4 class="mb-4">${product.productName }</h4>
+								</div>
+								<div class="row pt-5">
+									<p class="col-4">주문금액</p>
+									<p class="col-4">${product.price }원</p>
+									<p class="col-4"></p>
+								</div>
+							</div>
+						</div>
 					</div>
-                </div>
-				<div class="my-5">
-					<h2>구매정보</h2>
-						<fieldset class="border p-4">
-						<div class="row g-3 align-items-center mb-4">
-							<div class="col-1">
-								<label class="col-sm-12 col-form-label" for="depoName">입금자명</label>
-							</div>
-							<div class="col-6">
-								<input class="form-control" type="text" name="depoName" id="depoName">
-							</div>
-							<div class="col-5"></div>
+					<div class="my-5">
+						<h2>구매방식</h2>
+						<div class="form-check">
+							<input class="form-check-input" type="radio" name="howtoPay" id="howtoPay" value="무통장입금">
+							<label class="form-check-label" for="howtoPay">
+								무통장입금
+							</label>
 						</div>
-						<div class="row g-3 align-items-center mb-4">
-							<div class="col-1">
-								<label class="col-sm-12 col-form-label" for="acctNum">계좌번호</label>
+					</div>
+					<div class="my-5">
+						<h2>구매정보</h2>
+							<fieldset class="border p-4">
+							<div class="row g-3 align-items-center mb-4">
+								<div class="col-2">
+									<label class="col-sm-12 col-form-label" for="depoName">입금자명</label>
+								</div>
+								<div class="col-7">
+									<input class="form-control" type="text" name="depoName" id="depoName">
+								</div>
+								<div class="col-3"></div>
 							</div>
-							<div class="col-6">
-								<input class="form-control" type="password" name="acctNum" id="acctNum">
+							<div class="row g-3 align-items-center mb-4">
+								<div class="col-2">
+									<label class="col-sm-12 col-form-label" for="acctNum">계좌번호</label>
+								</div>
+								<div class="col-7">
+									<input class="form-control" type="text" name="acctNum" id="acctNum">
+								</div>
+								<div class="col-3"></div>
 							</div>
-							<div class="col-5"></div>
-						</div>
-						<div class="row g-3 align-items-center">
-							<div class="col-1">
-								<label class="col-sm-12 col-form-label" for="depoName">입금자명</label>
+							<div class="row g-3 align-items-center">
+								<div class="col-2">
+									<label class="col-sm-12 col-form-label" for="depoName">입금자명</label>
+								</div>
+								<div class="col-7">
+									<select class="form-select" aria-label="Default select example" name="bankName">
+										<option value="국민은행">국민은행</option>
+										<option value="우리은행">우리은행</option>
+										<option value="하나은행">하나은행</option>
+										<option value="농협은행">농협은행</option>
+										<option value="신한은행">신한은행</option>
+										<option value="기업은행">기업은행</option>
+									</select>
+								</div>
+								<div class="col-3"></div>
 							</div>
-							<div class="col-6">
-								<select class="form-select" aria-label="Default select example">
-									<option value="kb">국민은행</option>
-									<option value="woori">우리은행</option>
-									<option value="hana">하나은행</option>
-									<option value="nh">농협은행</option>
-									<option value="sh">신한은행</option>
-								</select>
-							</div>
-							<div class="col-5"></div>
-						</div>
-					</fieldset>
-				</div>
-				<div class="my-4 d-grid gap-5 d-md-flex justify-content-md-center">
-					<button type="submit" class="btn btn-lg rounded-pill" style="width: 220px; height: 60px; background-color: #04D9C4; color: #ffffff;">구매하기</button>
-				</div>				
-			</form>
+						</fieldset>
+					</div>
+					<div class="my-4 d-grid gap-5 d-md-flex justify-content-md-center">
+						<button type="submit" class="btn btn-lg rounded-pill" style="width: 220px; height: 60px; background-color: #04D9C4; color: #ffffff;">구매하기</button>
+					</div>				
+				</form>
             </main>
             <footer>
-				<img src="../resources/img/footer.jpg">
+				<img src="../resources/img/footer.png">
 			</footer>
         </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+		<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+		<script>
+			function findAddress() {
+				new daum.Postcode({
+					oncomplete: function(data) {
+						// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+						// 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
+						// 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+						var roadAddr = data.roadAddress; // 도로명 주소 변수
+
+						// 우편번호와 주소 정보를 해당 필드에 넣는다.
+						document.getElementById("roadAddress").value = roadAddr;
+					}
+				}).open();
+			}
+		</script>
     </body>
 </html>

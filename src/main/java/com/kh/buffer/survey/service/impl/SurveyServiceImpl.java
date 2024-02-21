@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.buffer.product.domain.ProductVO;
+import com.kh.buffer.survey.domain.OrderVO;
 import com.kh.buffer.survey.domain.SurveyVO;
 import com.kh.buffer.survey.service.SurveyService;
 import com.kh.buffer.survey.store.SurveyStore;
@@ -23,6 +24,24 @@ public class SurveyServiceImpl implements SurveyService {
 	public List<ProductVO> submitSurvey(SurveyVO survey) {
 		List<ProductVO> pList = pStore.submitSurvey(session, survey);
 		return pList;
+	}
+
+	@Override
+	public int insertOrder(OrderVO order) {
+		int result = pStore.insertOrder(session, order);
+		return result;
+	}
+
+	@Override
+	public OrderVO selectOneByNo(int orderNo) {
+		OrderVO orderOne = pStore.selectOneByNo(session, orderNo);
+		return orderOne;
+	}
+
+	@Override
+	public int getCurrVal() {
+		int orderNum = pStore.getCurrVal(session);
+		return orderNum;
 	}
 
 }
