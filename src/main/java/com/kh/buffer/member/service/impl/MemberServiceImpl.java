@@ -8,8 +8,6 @@ import com.kh.buffer.member.domain.MemberVO;
 import com.kh.buffer.member.service.MemberService;
 import com.kh.buffer.member.store.MemberStore;
 
-
-
 @Service
 public class MemberServiceImpl implements MemberService {
 
@@ -17,7 +15,13 @@ public class MemberServiceImpl implements MemberService {
 	private MemberStore mStore;
 	@Autowired
 	private SqlSession session;
-	
+
+	@Override
+	public int insertMember(MemberVO member) {
+		int result = mStore.insertMember(session, member);
+		return result;
+	}
+
 	@Override
 	public MemberVO checkMemberLogin(MemberVO member) {
 		MemberVO mOne = mStore.checkMemberLogin(session, member);
@@ -38,15 +42,15 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public int insertMember(MemberVO member) {
-		int result = mStore.insertMember(session, member);
+	public int deleteMember(String memberId) {
+		int result = mStore.deleteMember(session, memberId);
 		return result;
 	}
 
 	@Override
-	public int deleteMember(String memberId) {
+	public String findIdByEmail(String memberEmail) {
 		// TODO Auto-generated method stub
-		return 0;
+		return mStore.findIdByEmail(session, memberEmail);
 	}
 
 }
