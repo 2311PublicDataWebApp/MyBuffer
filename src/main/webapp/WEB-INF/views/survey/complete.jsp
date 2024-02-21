@@ -5,7 +5,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>설문</title>
+        <title>주문 완료</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
         <link rel="stylesheet" href="../resources/css/main.css">
     </head>
@@ -51,7 +51,39 @@
 				</nav>
 			</header>
             <main class="my-5">
-				<h1>안녕하세요</h1>
+				<table class="table">
+                    <thead class="table-light">
+                        <tr>
+                            <th colspan="2" scope="col">${order.howtoPay }</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th>처리결과</th>
+                            <td>정상적으로 처리되었습니다.</td>
+                        </tr>
+                        <tr>
+                            <th>주문번호</th>
+                            <td>${order.orderNo }</td>
+                        </tr>
+                        <tr>
+                            <th>입금금액</th>
+                            <td>${order.price } 원</td>
+                        </tr>
+                        <tr>
+                            <th>입금은행</th>
+                            <td>${order.bankName }</td>
+                        </tr>
+                        <tr>
+                            <th>입금은행 예금주</th>
+                            <td>${order.depoName }</td>
+                        </tr>
+                        <tr>
+                            <th>입금계좌번호</th>
+                            <td>${order.acctNum }</td>
+                        </tr>
+                    </tbody>
+                </table>
             </main>
             <footer>
 				<img src="../resources/img/footer.png">
