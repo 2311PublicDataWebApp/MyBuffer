@@ -1,6 +1,7 @@
 package com.kh.buffer.notice.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.kh.buffer.notice.domain.NoticeVO;
 import com.kh.buffer.notice.domain.PageInfo;
@@ -48,6 +49,21 @@ public interface NoticeService {
 	 * @return result
 	 */
 	int deleteNotice(int noticeNo);
+
+	/**
+	 * 공지사항 검색 Service
+	 * @param pInfo
+	 * @param paramMap
+	 * @return List
+	 */
+	List<NoticeVO> searchNoticeByKeword(PageInfo pInfo, Map<String, String> paramMap);
+
+	/**
+	 * 검색 게시물 전체 갯수 Service
+	 * @param paramMap
+	 * @return int
+	 */
+	int getTotalCount(Map<String, String> paramMap);
 	
 
 }

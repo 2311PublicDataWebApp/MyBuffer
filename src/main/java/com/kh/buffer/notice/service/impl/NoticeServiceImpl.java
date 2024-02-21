@@ -1,6 +1,7 @@
 package com.kh.buffer.notice.service.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,6 +53,18 @@ public class NoticeServiceImpl implements NoticeService {
 	public int deleteNotice(int noticeNo) {
 		int result = nStore.deleteNotice(session, noticeNo);
 		return result;
+	}
+
+	@Override
+	public List<NoticeVO> searchNoticeByKeword(PageInfo pInfo, Map<String, String> paramMap) {
+		List<NoticeVO> searchList = nStore.selectNoticesByKeword(session, pInfo, paramMap);
+		return searchList;
+	}
+
+	@Override
+	public int getTotalCount(Map<String, String> paramMap) {
+		int totalCount = nStore.selectTotalCount(session, paramMap);
+		return totalCount;
 	}
 
 }

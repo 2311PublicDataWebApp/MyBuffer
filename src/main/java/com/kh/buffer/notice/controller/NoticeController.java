@@ -84,6 +84,29 @@ public class NoticeController {
 		return pi;
 	}
 	
+	// 공지사항 검색
+	@RequestMapping(value="/notice/search.kh", method=RequestMethod.GET)
+	public ModelAndView searchNoticeList(ModelAndView mv
+			, @RequestParam("searchKeyword")String searchKeyword
+			, @RequestParam(value="page", required=false, defaultValue="1")Integer currentPage) {
+		/*
+		 * 2개의 값을 하나의 변수로 다루는 방법
+		 * 1. VO 클래스를 만드는 방법 (이미 해봄)
+		 * 2. HashMap 사용하는 방법 (이미 해봄)
+		 */
+		Map<String, String> paramMap = new HashMap<String, String>();
+		
+		paramMap.put("searchKeyword", searchKeyword);
+		int totalCount = nService.getTotalCount(paramMap);
+		PageInfo pInfo = this.getPageInfo(currentPage, totalCount);
+		List<NoticeVO> searchList = nService.searchNoticeByKeword(pInfo, paramMap);
+		mv.addObject("sList", searchList);
+		mv.addObject("pInfo", pInfo);
+		mv.addObject("searchKeyword", searchKeyword);
+		mv.setViewName("notice/search");
+		return mv;
+	}
+	
 	// 공지사항 등록페이지
 		@RequestMapping(value="/notice/insert.do", method=RequestMethod.GET)
 		public ModelAndView showInsertForm(ModelAndView mv) {

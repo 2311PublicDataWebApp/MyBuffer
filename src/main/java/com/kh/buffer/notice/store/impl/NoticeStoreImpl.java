@@ -1,6 +1,7 @@
 package com.kh.buffer.notice.store.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
@@ -51,6 +52,21 @@ public class NoticeStoreImpl implements NoticeStore {
 	public int deleteNotice(SqlSession session, int noticeNo) {
 		int result = session.delete("NoticeMapper.deleteNotice", noticeNo);
 		return result;
+	}
+
+	@Override
+	public List<NoticeVO> selectNoticesByKeword(SqlSession session, PageInfo pInfo, Map<String, String> paramMap) {
+		int limit = pInfo.getRecordCountPerPage();
+		int offset = (pInfo.getCurrentPage()-1)*limit;
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		List<NoticeVO> searchList = session.selectList("NoticeMapper.searchNoticeByKeword", paramMap, rowBounds);
+		return searchList;
+	}
+
+	@Override
+	public int selectTotalCount(SqlSession session, Map<String, String> paramMap) {
+		int totalCount = session.selectOne("NoticeMapper.searchTotalCount", paramMap);
+		return totalCount;
 	}
 
 }

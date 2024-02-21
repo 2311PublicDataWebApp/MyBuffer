@@ -72,7 +72,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							<c:forEach items="${nList }" var="notice" varStatus="i">
+							<c:forEach items="${sList }" var="notice" varStatus="i">
 								<tr align="center">
 									<td>${notice.noticeNo }</td>
 									<td><a href="/notice/detail.do?noticeNo=${notice.noticeNo }"> ${notice.noticeName

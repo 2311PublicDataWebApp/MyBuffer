@@ -51,14 +51,29 @@
   	
   	
   	<select id="selectNoticeByNo" resultMap="noticeResultMap">
-  		SELECT * FROM NOTICE_TBL WHERE NOTICE_NO = #{noticeNo }
+  		SELECT * FROM NOTICE_TBL LEFT OUTER JOIN NOTICE_IMG_TBL USING(NOTICE_NO) WHERE NOTICE_NO = #{noticeNo }
   	</select>
 
 	<select id="selectTotalCount" resultType="_int">
   		SELECT COUNT(*) FROM NOTICE_TBL
   	</select>
+  	
+  	<select id="searchTotalCount" resultType="_int">
+  		SELECT COUNT(*) FROM NOTICE_TBL
+  		WHERE NOTICE_WRITER LIKE '%'||#{searchKeyword }||'%'
+  		OR NOTICE_NAME LIKE '%'||#{searchKeyword }||'%'
+  		OR NOTICE_CONTENT LIKE '%'||#{searchKeyword }||'%'
+  	</select>
+  	
+  	<select id="searchNoticeByKeword" resultMap = "noticeResultMap">
+  		SELECT * FROM NOTICE_TBL
+  		WHERE NOTICE_WRITER LIKE '%'||#{searchKeyword }||'%'
+  		OR NOTICE_NAME LIKE '%'||#{searchKeyword }||'%'
+  		OR NOTICE_CONTENT LIKE '%'||#{searchKeyword }||'%'
+  		ORDER BY NOTICE_NO DESC
+  	</select>
 
 	<select id="selectNotice" resultMap="noticeResultMap">
-  		SELECT * FROM NOTICE_TBL ORDER BY NOTICE_NO DESC
+  		SELECT * FROM NOTICE_TBL LEFT OUTER JOIN NOTICE_IMG_TBL USING(NOTICE_NO) ORDER BY NOTICE_NO DESC
   	</select>
 </mapper>
