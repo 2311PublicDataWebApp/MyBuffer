@@ -11,10 +11,20 @@
         <result property="servingSize" 			column="SERVING_SIZE"/>
         <result property="expiredDate" 			column="EXPIRED_DATE"/>
         <result property="ageCode" 				column="AGE_CODE"/>
+        <result property="gender" 				column="GENDER"/>
+        <result property="caution" 				column="CAUTION"/>
+        <result property="description" 			column="DESCRIPTION"/>
+        <result property="description1" 		column="DESCRIPTION1"/>
+        <result property="description2" 		column="DESCRIPTION2"/>
+        <result property="description3" 		column="DESCRIPTION3"/>
         <result property="productFileName"		column="FILE_NAME"/>
   		<result property="productFileRename" 	column="FILE_RENAME"/>
   		<result property="productFilePath" 		column="FILE_PATH"/>
   		<result property="productFileSize" 		column="FILE_LENGTH"/>
+  		<result property="ingredientCode" 		column="INGREDIENT_CODE"/>
+  		<result property="ingredientName" 		column="INGREDIENT_NAME"/>
+  		<result property="servingAmount" 		column="SERVING_AMOUNT"/>
+  		<result property="servingUnit" 			column="SERVING_UNIT"/>
     </resultMap>
     <select id="selectTotalCount" resultType="_int">
     	SELECT COUNT(*) FROM PRODUCT_TBL
@@ -24,18 +34,19 @@
     </select>
     <select id="selectProductByNo" resultMap="productResultMap">
     	SELECT * FROM PRODUCT_TBL LEFT OUTER JOIN PRODUCT_IMG_TBL ON PRODUCT_TBL.PRODUCT_NO = PRODUCT_IMG_TBL.PRODUCT_NO WHERE PRODUCT_TBL.PRODUCT_NO = #{productNo }
+<!--    SELECT * FROM PRODUCT_TBL LEFT OUTER JOIN PRODUCT_IMG_TBL ON PRODUCT_TBL.PRODUCT_NO = PRODUCT_IMG_TBL.PRODUCT_NO LEFT OUTER JOIN SERVING_IGD_TBL ON PRODUCT_TBL.PRODUCT_NO = SERVING_IGD_TBL.PRODUCT_NO LEFT OUTER JOIN INGREDIENT_TBL ON SERVING_IGD_TBL.INGREDIENT_CODE = INGREDIENT_TBL.INGREDIENT_CODE WHERE PRODUCT_TBL.PRODUCT_NO = #{productNo } -->
     </select>
 <!--     <select id="selectProductImgByNo" resultMap="productResultMap"> -->
 <!--     	SELECT * FROM PRODUCT_IMG_TBL WHERE PRODUCT_NO = #{productNo } -->
 <!--     </select> -->
     <insert id="insertProduct">
-    	INSERT INTO PRODUCT_TBL VALUES(SEQ_PRODUCT_NO.NEXTVAL, #{productName }, #{brandName }, #{price }, #{servingSize }, TO_DATE(#{expiredDate },'YY/MM/DD'), #{ageCode })
+    	INSERT INTO PRODUCT_TBL VALUES(SEQ_PRODUCT_NO.NEXTVAL, #{productName }, #{brandName }, #{price }, #{servingSize }, TO_DATE(#{expiredDate },'YY/MM/DD'), #{ageCode }, #{gender }, #{caution }, #{description }, #{description1 }, #{description2 }, #{description3 })
     </insert>
     <insert id="insertProductImg">
   		INSERT INTO PRODUCT_IMG_TBL VALUES(SEQ_PRODUCT_NO.CURRVAL, #{productFileName}, #{productFileRename}, #{productFilePath}, #{productFileSize})
   	</insert>
     <update id="modifyProduct">
-    	UPDATE PRODUCT_TBL SET PRODUCT_NAME = #{productName }, BRAND_NAME = #{brandName }, PRICE = #{price }, SERVING_SIZE = #{servingSize }, EXPIRED_DATE = TO_DATE(#{expiredDate },'YY/MM/DD'), AGE_CODE = #{ageCode } WHERE PRODUCT_NO = #{productNo }
+    	UPDATE PRODUCT_TBL SET PRODUCT_NAME = #{productName }, BRAND_NAME = #{brandName }, PRICE = #{price }, SERVING_SIZE = #{servingSize }, EXPIRED_DATE = TO_DATE(#{expiredDate },'YY/MM/DD'), AGE_CODE = #{ageCode }, GENDER = #{gender } WHERE PRODUCT_NO = #{productNo }
     </update>
     <update id="modifyProductImg">
 	  	UPDATE PRODUCT_IMG_TBL SET FILE_NAME = #{productFileName }, FILE_RENAME = #{productFileRename }, FILE_PATH = #{productFilePath }, FILE_LENGTH = #{productFileSize } WHERE PRODUCT_NO = #{productNo }

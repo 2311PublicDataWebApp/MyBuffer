@@ -17,7 +17,7 @@
 				<div class="d-flex">
 					<ul class="nav">
 						<li class="nav-item">
-							<a class="nav-link active" aria-current="page" href="#">
+							<a class="nav-link active" aria-current="page" href="/">
 								<img src="../resources/img/logo.png" style="height: 40px;" alt="No Image">
 							</a>
 						</li>
@@ -31,17 +31,19 @@
 						</svg>
 					</button>
 					<ul class="dropdown-menu">
-						<c:if test="${session.memberId eq null }">
-							<li><a class="dropdown-item" href="#">로그인</a></li>
-							<li><a class="dropdown-item" href="#">회원가입</a></li>
+						<c:if test="${memberId eq null }">
+							<li><a class="dropdown-item" href="/member/login.do">로그인</a></li>
+							<li><a class="dropdown-item" href="/member/register.do">회원가입</a></li>
 						</c:if>
-						<c:if test="${session.memberId ne null }">
-							<c:if test="${session.memberId ne 'admin' }">
-								<li><a class="dropdown-item" href="#">회원 정보수정</a></li>
+						<c:if test="${memberId ne null }">
+							<c:if test="${memberId ne 'admin' }">
+								<li><a class="dropdown-item" href="/member/logout.do">로그아웃</a></li>
+								<li><a class="dropdown-item" href="/member/updatemember.do">정보 수정</a></li>
 							</c:if>
-							<c:if test="${session.memberId eq 'admin' }">
-								<li><a class="dropdown-item" href="#">회원 목록</a></li>
-								<li><a class="dropdown-item" href="#">제품 목록</a></li>
+							<c:if test="${memberId eq 'admin' }">
+								<li><a class="dropdown-item" href="/member/logout.do">로그아웃</a></li>
+								<li><a class="dropdown-item" href="/member/list.do">회원 목록</a></li>
+								<li><a class="dropdown-item" href="/product/list.do">제품 목록</a></li>
 							</c:if>
 						</c:if>
 					</ul>
@@ -94,10 +96,10 @@
 												<button class="btn btn-body dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"></button>
 												<ul class="dropdown-menu">
 													<li>
-														<a class="dropdown-item" type="button" href="/product/productDetail.kr?productNo=${product.productNo }">상세 조회</a>
+														<a class="dropdown-item" type="button" href="/product/productDetail.do?productNo=${product.productNo }">상세 조회</a>
 													</li>
 													<li>
-														<a class="dropdown-item" type="button" href="/product/modify.kr?productNo=${product.productNo }">제품 수정</a>
+														<a class="dropdown-item" type="button" href="/product/modify.do?productNo=${product.productNo }">제품 수정</a>
 													</li>
 													<li>
 														<button class="dropdown-item" type="button" onclick="deleteProduct(${product.productNo });">제품 삭제</button>
@@ -117,21 +119,21 @@
 							<ul class="pagination justify-content-center">
 								<c:if test="${pInfo.startNavi != 1 }">
 									<li class="page-item">
-										<a class="page-link rounded-circle" href="/product/list.kr?page=${pInfo.startNavi - 1 }" aria-label="Previous">
+										<a class="page-link rounded-circle" href="/product/list.do?page=${pInfo.startNavi - 1 }" aria-label="Previous">
 											<span aria-hidden="true">&laquo;</span>
 										</a>
 									</li>
 								</c:if>
 								<c:forEach begin="${pInfo.startNavi }" end="${pInfo.endNavi }" var="p">
 									<li class="page-item">
-										<a class="page-link rounded-circle mx-2" href="/product/list.kr?page=${p }" style="border: none; color: #313131;">
+										<a class="page-link rounded-circle mx-2" href="/product/list.do?page=${p }" style="border: none; color: #313131;">
 											${p }
 										</a>
 									</li>
 								</c:forEach>
 								<c:if test="${pInfo.endNavi != pInfo.naviTotalCount }">
 									<li class="page-item">
-										<a class="page-link rounded-circle" href="/product/list.kr?page=${pInfo.endNavi + 1 }" aria-label="Next">
+										<a class="page-link rounded-circle" href="/product/list.do?page=${pInfo.endNavi + 1 }" aria-label="Next">
 											<span aria-hidden="true">&raquo;</span>
 										</a>
 									</li>
@@ -144,13 +146,13 @@
 			</main>
 		</div>
 		<footer>
-			<img src="../resources/img/footer.jpg">
+			<img src="../resources/img/footer.png">
 		</footer>
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 		<script type="text/javascript">
 		        function deleteProduct(productNo) {
 					if(confirm("해당 제품을 삭제하시겠습니까?")) {
-						location.href = "/product/delete.kr?productNo=" + productNo;
+						location.href = "/product/delete.do?productNo=" + productNo;
 					} 
 				}
 	    </script>

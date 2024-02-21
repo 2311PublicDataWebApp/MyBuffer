@@ -11,13 +11,13 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 	</head>
 	<body class="bg-body-tertiary">
-		<header class="navbar navbar-expand-lg bd-navbar shadow-sm" style="background-color: #ffffff;">
+		<header class="navbar navbar-expand-lg bd-navbar shadow-sm">
 			<nav class="container" aria-label="Main navigation">
 				<div class="d-flex" style="width: 4.25rem;"></div>
 				<div class="d-flex">
 					<ul class="nav">
 						<li class="nav-item">
-							<a class="nav-link active" aria-current="page" href="#">
+							<a class="nav-link active" aria-current="page" href="/">
 								<img src="../resources/img/logo.png" style="height: 40px;" alt="No Image">
 							</a>
 						</li>
@@ -31,17 +31,19 @@
 						</svg>
 					</button>
 					<ul class="dropdown-menu">
-						<c:if test="${session.memberId eq null }">
-							<li><a class="dropdown-item" href="#">로그인</a></li>
-							<li><a class="dropdown-item" href="#">회원가입</a></li>
+						<c:if test="${memberId eq null }">
+							<li><a class="dropdown-item" href="/member/login.do">로그인</a></li>
+							<li><a class="dropdown-item" href="/member/register.do">회원가입</a></li>
 						</c:if>
-						<c:if test="${session.memberId ne null }">
-							<c:if test="${session.memberId ne 'admin' }">
-								<li><a class="dropdown-item" href="#">회원 정보수정</a></li>
+						<c:if test="${memberId ne null }">
+							<c:if test="${memberId ne 'admin' }">
+								<li><a class="dropdown-item" href="/member/logout.do">로그아웃</a></li>
+								<li><a class="dropdown-item" href="/member/updatemember.do">정보 수정</a></li>
 							</c:if>
-							<c:if test="${session.memberId eq 'admin' }">
-								<li><a class="dropdown-item" href="#">회원 목록</a></li>
-								<li><a class="dropdown-item" href="#">제품 목록</a></li>
+							<c:if test="${memberId eq 'admin' }">
+								<li><a class="dropdown-item" href="/member/logout.do">로그아웃</a></li>
+								<li><a class="dropdown-item" href="/member/list.do">회원 목록</a></li>
+								<li><a class="dropdown-item" href="/product/list.do">제품 목록</a></li>
 							</c:if>
 						</c:if>
 					</ul>
@@ -57,7 +59,7 @@
 							<h2 class="mb-4 py-3">제품 수정</h2>
 							<hr>
 							<br>
-							<form action="/product/modify.kr" method="post" enctype="multipart/form-data">
+							<form action="/product/modify.do" method="post" enctype="multipart/form-data">
 								<input type="hidden" name="productNo" value="${product.productNo }">
 								<!-- 첨부파일 hidden -->
 								<input type="hidden" name="productFilename" value="${product.productFileName }">
@@ -99,7 +101,13 @@
 								<div class="row mb-4 justify-content-center">
 									<label for="ageCode" class="col-sm-2 col-form-label">연령대코드</label>
 									<div class="col-sm-7">
-										<input type="text" class="form-control" name="ageCode" id="ageCode" placeholder="A/B/C" value="${product.ageCode }">
+										<input type="text" class="form-control" name="ageCode" id="ageCode" placeholder="A / B / C" value="${product.ageCode }">
+									</div>
+								</div>
+								<div class="row mb-4 justify-content-center">
+									<label for="gender" class="col-sm-2 col-form-label">연령대코드</label>
+									<div class="col-sm-7">
+										<input type="text" class="form-control" name="gender" id="gender" placeholder="M / F" value="${product.gender }">
 									</div>
 								</div>
 								<div class="row mb-4 justify-content-center">
@@ -128,11 +136,11 @@
 			</main>
 		</div>
 		<footer>
-			<img src="../resources/img/footer.jpg">
+			<img src="../resources/img/footer.png">
 		</footer>
 		<script type="text/javascript">
 			function showProductList() {
-				location.href = "/product/list.kr";
+				location.href = "/product/list.do";
 			}
 		</script>
 	</body>
