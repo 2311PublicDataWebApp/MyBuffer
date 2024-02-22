@@ -1,10 +1,13 @@
 package com.kh.buffer.member.service.impl;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.buffer.member.domain.MemberVO;
+import com.kh.buffer.member.domain.PageInfo;
 import com.kh.buffer.member.service.MemberService;
 import com.kh.buffer.member.store.MemberStore;
 
@@ -51,6 +54,29 @@ public class MemberServiceImpl implements MemberService {
 	public String findIdByEmail(String memberEmail) {
 		// TODO Auto-generated method stub
 		return mStore.findIdByEmail(session, memberEmail);
+	}
+
+	@Override
+	public MemberVO getMemberByIdAndEmail(MemberVO member) {
+		return mStore.findMemberByIdAndEmail(session, member);
+	}
+
+	@Override
+	public int changePassword(MemberVO member) {
+		int result = mStore.updatePassword(session, member);
+		return result;
+	}
+	
+	@Override
+	public int getTotalCount() {
+		int totalCount = mStore.getTotalCount(session);
+		return totalCount;
+	}
+
+	@Override
+	public List<MemberVO> selectMemberList(PageInfo pInfo) {
+		List<MemberVO> mList = mStore.selectMemberList(session, pInfo);
+		return mList;
 	}
 
 }

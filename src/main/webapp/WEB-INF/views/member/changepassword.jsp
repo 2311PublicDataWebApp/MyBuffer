@@ -5,7 +5,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>회원가입</title>
+        <title>비밀번호 변경</title>
  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
         <link rel="stylesheet" href="../resources/css/main.css">
         <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -13,7 +13,7 @@
 		<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
     </head>
     <body>
-<header class="navbar navbar-expand-lg bd-navbar shadow-sm py-2 mb-5" style="background-color: #ffffff;">
+	<header class="navbar navbar-expand-lg bd-navbar shadow-sm py-2 mb-5" style="background-color: #ffffff;">
 			<nav class="container" aria-label="Main navigation">
 				<div class="d-flex" style="width: 4.25rem;"></div>
 				<div class="d-flex">
@@ -51,46 +51,21 @@
 					</ul>
 				</div>
 			</nav>
-		</header>    
-        <div class="container">
-
-            <main class="my-5">
-				
-				    <h1>회원가입</h1>
-    <form action="/member/register.do" method="post">
+		</header>
+        <div class="container"> 
+            <main class="my-5">				
+				<h1>비밀번호 변경하기</h1>
+    <form action="/member/changepassword.do" method="post">
+    	<input type="hidden" name="memberId" value="${memberId }">
         <div>
-            <label for="memberId">아이디:</label>
-            <input type="text" id="memberId" name="memberId" >
-        </div>
-        <div>
-            <label for="memberPw">비밀번호:</label>
-            <input type="password" id="memberPw" name="memberPw" >
-        </div>
-        <div>
-            <label for="confirmMemberPw">비밀번호 확인:</label>
-            <input type="password" id="confirmMemberPw" name="confirmMemberPw" >
-        </div>
-        <div>
-            <label for="memberName">이름:</label>
-            <input type="text" id="memberName" name="memberName" >
-        </div>
-        <div>
-            <label for="memberAddress">주소:</label>
-            <input type="text" id="memberAddress" name="memberAddress">
-        </div>
-        <div>
-            <label for="memberEmail">이메일:</label>
-            <input type="email" id="memberEmail" name="memberEmail" >
-        </div>
-        <div>
-            <label for="memberPhone">휴대폰번호:</label>
-            <input type="tel" id="memberPhone" name="memberPhone">
-        </div>
-        <div>
-            <label for="memberDate">생년월일:</label>
-            <input type="date" id="memberDate" name="memberDate">
-        </div>
-        <button type="submit">가입하기</button>
+            <label for="userId">새로운 비밀번호</label>
+            <input type="password" id="memberPw" name="memberPw" placeholder="새로운 비밀번호를 입력하세요">
+        </div>        
+   		<button type="submit">비밀번호 변경</button>
+        <br><br>   
+        <a href="/member/findid.do" >아이디 찾기</a>
+        <a href="/member/findpassword.do" >비밀번호 찾기</a>
+        <a href="/member/insert.do" >회원가입</a>
     </form>
             </main>
         </div>
@@ -103,7 +78,7 @@
                 <img alt="" src="../resources/img/text.png" style="height: 95px;">
             </div>
             <div class="col-md-2 d-flex justify-content-center align-items-center"></div>
-        </footer>        
+        </footer>       
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
     </body>
 </html>

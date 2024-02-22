@@ -1,8 +1,11 @@
 package com.kh.buffer.member.store;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 
 import com.kh.buffer.member.domain.MemberVO;
+import com.kh.buffer.member.domain.PageInfo;
 
 public interface MemberStore {
 	
@@ -52,5 +55,35 @@ public interface MemberStore {
 	 * @throws result
 	 */
 	String findIdByEmail(SqlSession session, String memberEmail);
+
+	/**
+	 * 비밀번호 찾기
+	 * @param memberId
+	 * @param memberEmail
+	 * @return
+	 */
+	MemberVO findMemberByIdAndEmail(SqlSession session, MemberVO member);
+	
+	/**
+	 * 비밀번호 변경하기 Store
+	 * @param memberId
+	 * @param memberPw
+	 */
+	int updatePassword(SqlSession session, MemberVO member);
+	
+	/**
+	 * 회원 전체 개수 Store
+	 * @param session
+	 * @return int
+	 */
+	int getTotalCount(SqlSession session);
+
+	/**
+	 * 회원 리스트 Store
+	 * @param session
+	 * @param pInfo
+	 * @return List<MemberVO>
+	 */
+	List<MemberVO> selectMemberList(SqlSession session, PageInfo pInfo);
 
 }

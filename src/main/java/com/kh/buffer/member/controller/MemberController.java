@@ -1,5 +1,8 @@
 package com.kh.buffer.member.controller;
 
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kh.buffer.member.domain.MemberVO;
+import com.kh.buffer.member.domain.PageInfo;
 import com.kh.buffer.member.service.MemberService;
 
 @Controller
@@ -96,11 +100,59 @@ public class MemberController {
 	public String showFindPasswordPage() {
 		return "member/findPassword";
 	}
+	
+
+	 @RequestMapping(value = "/member/findpassword.do", method = RequestMethod.POST)
+	    public String processResetPassword(@RequestParam("memberId") String memberId,
+	                                       @RequestParam("memberEmail") String memberEmail,
+	                                       Model model) {
+	        try {
+	            // 입력된 아이디와 이메일로 회원 정보 조회
+	        	MemberVO mParam = new MemberVO();
+	        	mParam.setMemberId(memberId);
+	        	mParam.setMemberEmail(memberEmail);
+	            MemberVO member = mService.getMemberByIdAndEmail(mParam);
+
+	            if (member != null) {
+	                // 회원 정보가 일치하는 경우, 비밀번호 재설정 페이지로 이동
+	                model.addAttribute("memberId", memberId);
+	                return "member/changepassword"; // 비밀번호 재설정 폼으로 이동
+	            } else {
+	                // 회원 정보가 일치하지 않는 경우, 에러 메시지를 모델에 추가하여 다시 비밀번호 재설정 페이지로 이동
+	                model.addAttribute("errorMessage", "입력하신 아이디 또는 이메일이 일치하지 않습니다.");
+	                return "common/errorPage"; // 비밀번호 재설정 페이지로 이동
+	            }
+	        } catch (Exception e) {
+	            // 비밀번호 재설정 과정에서 예외가 발생한 경우, 에러 메시지를 모델에 추가하여 에러 페이지로 이동
+	            model.addAttribute("errorMessage", "비밀번호 재설정 중 오류가 발생했습니다: " + e.getMessage());
+	            return "common/errorPage"; // 에러 페이지로 이동
+	        }
+	    }
+	
+	    // 비밀번호 변경을 처리하는 POST 메서드
+	    @RequestMapping(value = "/member/changepassword.do", method = RequestMethod.POST)
+	    public String changePassword(@RequestParam("memberId") String memberId,
+	                                 @RequestParam("memberPw") String memberPw,
+	                                 Model model) {
+	        try {
+	            // 비밀번호 변경 로직을 수행하는 서비스 메서드 호출
+	        	MemberVO member = new MemberVO(memberId, memberPw);
+	            mService.changePassword(member);
+	            return "redirect:/member/login.do"; // 비밀번호 재설정 성공 페이지로 이동
+	        } catch (Exception e) {
+	            // 비밀번호 변경 과정에서 예외가 발생한 경우, 에러 메시지를 모델에 추가하여 에러 페이지로 이동
+	            model.addAttribute("errorMessage", "비밀번호 변경 중 오류가 발생했습니다: " + e.getMessage());
+	            return "common/errorPage"; // 에러 페이지로 이동
+	        }
+	    }
+	
+	
+	
 
 //------------------------------회원 가입-------------------------------------------------------    
 	@RequestMapping(value = "/member/register.do", method = RequestMethod.GET)
 	public String showRegisterPage() {
-		return "member/register";
+		return "member/insert";
 	}
 
 	@RequestMapping(value = "/member/register.do", method = RequestMethod.POST)
@@ -127,7 +179,7 @@ public class MemberController {
 //-----------------------------------회원 정보 수정------------------------------------------------    
 
 	// 회원 정보 수정 페이지 이동
-	@RequestMapping(value = "/member/updatemember.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/member/update.do", method = RequestMethod.GET)
 	public String showUpdatePage(HttpSession session, Model model) {
 		try {
 			String memberId = (String) session.getAttribute("memberId");
@@ -151,7 +203,7 @@ public class MemberController {
 	}
 
 	// 회원 정보 수정
-	@RequestMapping(value = "/member/updatemember.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/member/update.do", method = RequestMethod.POST)
 	public String updatePage(@ModelAttribute MemberVO member, Model model) {
 		try {
 
@@ -185,7 +237,7 @@ public class MemberController {
 			}
 			// 회원탈퇴가 성공했는지 확인
 			if (result > 0) {
-				return "redirect:/member/logout.kh";
+				return "redirect:/member/logout.do";
 			} else {
 				model.addAttribute("msg", "회원 탈퇴가 완료되지 않았습니다.");
 				return "common/errorPage";
@@ -196,5 +248,53 @@ public class MemberController {
 			return "common/errorPage";
 		}
 	}
+	
+	// 회원 목록
+		@RequestMapping(value = "/member/list.do", method = RequestMethod.GET)
+		public String showProductList(Model model
+				, HttpServletRequest request
+				, @RequestParam(value = "page", required = false, defaultValue = "1") Integer currentPage) {
+			try {
+				int totalCount = mService.getTotalCount();
+				PageInfo pInfo = this.getPageInfo(currentPage, totalCount);
+				List<MemberVO> mList = mService.selectMemberList(pInfo);
+				if (!mList.isEmpty()) {
+					model.addAttribute("mList", mList);
+					model.addAttribute("pInfo", pInfo);
+				} else {
+					model.addAttribute("mList", null);
+				}
+				return "member/list";
+			} catch (Exception e) {
+				model.addAttribute("msg", e.getMessage());
+				return "common/errorPage";
+			}
+
+		}
+		
+		// 페이징 처리
+		private PageInfo getPageInfo(Integer currentPage, Integer totalCount) {
+			PageInfo pInfo = new PageInfo();
+			int recordPerPage = pInfo.getRecordPerPage();
+			int naviPerPage = pInfo.getNaviPerPage();
+			int naviTotalCount;
+			int startNavi;
+			int endNavi;
+			if ((totalCount % recordPerPage) > 0) {
+				naviTotalCount = (totalCount / recordPerPage) + 1;
+			} else {
+				naviTotalCount = (totalCount / recordPerPage);
+			}
+			startNavi = ((currentPage - 1) / naviPerPage) * naviPerPage + 1;
+			endNavi = startNavi + naviPerPage - 1;
+			if (endNavi > naviTotalCount) {
+				endNavi = naviTotalCount;
+			}
+			pInfo.setCurrentPage(currentPage);
+			pInfo.setNaviTotalCount(naviTotalCount);
+			pInfo.setStartNavi(startNavi);
+			pInfo.setEndNavi(endNavi);
+			return pInfo;
+		}
 
 }
