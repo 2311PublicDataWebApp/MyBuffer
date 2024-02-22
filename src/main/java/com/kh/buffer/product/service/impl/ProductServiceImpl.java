@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kh.buffer.product.domain.IngredientVO;
 import com.kh.buffer.product.domain.PageInfo;
 import com.kh.buffer.product.domain.ProductVO;
 import com.kh.buffer.product.service.ProductService;
@@ -56,6 +57,15 @@ public class ProductServiceImpl implements ProductService{
 	}
 
 	/**
+	 * 성분 리스트 Service
+	 */
+	@Override
+	public List<IngredientVO> selectIngredientByNo(int productNo) {
+		List<IngredientVO> iList = pStore.selectIngredientByNo(session, productNo);
+		return iList;
+	}
+	
+	/**
 	 * 제품코드 연동 Service
 	 */
 	@Override
@@ -72,5 +82,6 @@ public class ProductServiceImpl implements ProductService{
 		int totalCount = pStore.getTotalCount(session);
 		return totalCount;
 	}
+
 
 }

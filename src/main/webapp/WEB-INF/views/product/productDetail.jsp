@@ -9,9 +9,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>제품 상세 페이지</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+		<link rel="stylesheet" href="../resources/css/main.css">
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
 	</head>
 	<body>
-		<header class="navbar navbar-expand-lg bd-navbar shadow-sm">
+		<header class="navbar navbar-expand-lg bd-navbar shadow-sm" style="background-color: #ffffff;">
 			<nav class="container" aria-label="Main navigation">
 				<div class="d-flex" style="width: 4.25rem;"></div>
 				<div class="d-flex">
@@ -51,60 +55,122 @@
 			</nav>
 		</header>
 		<div class="container-cover">
-			<main class="mx-auto">
-				<div class="row p-5 p-md-5 justify-content-md-center text-body-emphasis">
-					<div class="col-md-5 px-0">
+			<main>
+				<div class="row gap-5 p-5 p-md-5 justify-content-md-center text-body-emphasis" style="--bs-gutter-x: 0;">
+					<div class="col-md-3 px-0 pt-4">
 						<c:if test="${product.productFileName ne null }">
-							<div style="text-align: center;"><img src="../resources/puploadFiles/${product.productFileRename }" style="width: 300px;" alt="제품 이미지"></div>
+							<div style="text-align: center;"><img src="../resources/puploadFiles/${product.productFileRename }" style="width: 340px;" alt="제품 이미지"></div>
 						</c:if>
 						<c:if test="${product.productFileName eq null }">
 							<div style="text-align: center;"></div>
 						</c:if>
 					</div>
-					<div class="col-md-3 px-0">
-						<h3>${product.productName }</h3>
-						<hr>
-						<p>${product.brandName }</p>
-						<p>${product.servingSize } 정</p>
-						<fmt:parseDate value="${product.expiredDate}" var="expiredDate" pattern="yyyy-MM-dd HH:mm:ss" />
-						<fmt:formatDate value="${expiredDate }" pattern="yyyy년 MM월 dd일"  var="eDate"/>
-						<p>${eDate }</p>
-						<hr>
-						<div class="row d-grid gap-5 d-flex justify-content-center">
-							<p>판매가격</p>
-							<h3>₩${product.price }</h3>
-						</div>
-						<div class="my-5 d-grid gap-5 d-md-flex justify-content-md-center">
-							<button type="button" class="btn btn-lg rounded-pill shadow-sm" style="width: 250px; height: 55px; background-color: #04D9C4; color: #ffffff;" onclick="checkLogin('${memberId}', ${product.productNo });">구매하기</button>
+					<div class="col-md-3 px-4 justify-content-center">
+						<div>
+							<div class="row d-flex pt-3 mb-3 justify-content-center border-bottom" style="--bs-gutter-x: 0;">
+								<div class="d-flex col-md-12 justify-content-start align-items-start">
+									<p class="fs-3 fw-semibold">${product.productName }</p>
+								</div>
+							</div>
+							<div class="row d-flex pt-1 justify-content-center" style="--bs-gutter-x: 0;">
+								<div class="d-flex col-md-10 justify-content-start align-items-start">
+									<p class="fs-5 fw-medium">${product.brandName }</p>
+								</div>
+								<div class="d-flex col-md-2"></div>
+							</div>
+							<div class="row d-flex pt-3 mb-1 justify-content-center border-top" style="--bs-gutter-x: 0;">
+								<div class="d-flex col-md-3 justify-content-start align-items-start">
+									<p class="fs-6">제공수량</p>
+								</div>
+								<div class="d-flex col-md-5 justify-content-start align-items-start">
+									<p class="fs-6">${product.servingSize } 정</p>
+								</div>
+								<div class="d-flex col-md-4 justify-content-start align-items-start"></div>
+							</div>
+							<fmt:parseDate value="${product.expiredDate}" var="expiredDate" pattern="yyyy-MM-dd HH:mm:ss" />
+							<fmt:formatDate value="${expiredDate }" pattern="yyyy년 MM월 dd일"  var="eDate"/>
+							<div class="row d-flex justify-content-center border-bottom" style="--bs-gutter-x: 0;">
+								<div class="d-flex col-md-3 justify-content-start align-items-center">
+									<p class="fs-6">소비기한</p>
+								</div>
+								<div class="d-flex col-md-8 justify-content-start align-items-center">
+									<p class="fs-6">${eDate }</p>
+								</div>
+								<div class="d-flex col-md-1"></div>
+							</div>
+							<div class="row d-flex pt-2 justify-content-center align-items-center" style="--bs-gutter-x: 0;">
+								<div class="d-flex col-md-3 justify-content-start">
+									<p class="fs-6">판매가격</p>
+								</div>
+								<div class="d-flex col-md-5 justify-content-center">
+									<p class="fs-3 fw-semibold">₩${product.price }</p>
+								</div>
+								<div class="d-flex col-md-4"></div>
+							</div>
+							<div class="my-3 d-grid gap-5 d-md-flex justify-content-md-center">
+								<button type="button" class="btn btn-lg rounded-pill shadow-sm" style="width: 250px; height: 55px; background-color: #04D9C4; color: #ffffff; --bs-gutter-x: 0" onclick="checkLogin('${memberId}', ${product.productNo });">구매하기</button>
+							</div>
 						</div>
 					</div>
 				</div>
-				<div class="row py-5 justify-content-center" style="background-color: #f8f8f8;">
-					<div class="col-md-8 m-5 rounded-5 shadow border border-1" style="background-color: #ffffff;">
-						<div class="m-5">
-							<h5>제품 설명란</h5>
-							<br>
-							<c:if test="${product.description1 ne null}">
-								<p>${product.description1 }</p>
-							</c:if>
-							<c:if test="${product.description2 ne null}">
-								<p>${product.description2 }</p>
-							</c:if>
-							<c:if test="${product.description3 ne null}">
-								<p>${product.description3 }</p>
-							</c:if>
-							<br>
-							<h6>권장 복용법</h6>
-							<p>${product.description }</p>
-							<h6>주의사항</h6>
-							<p>${product.caution }</p>
+				<div class="row p-4 justify-content-center" style="background-color: #f9f9f9; --bs-gutter-x: 0">
+					<div class="row my-5 py-2 col-md-8 rounded-5 shadow border border-1" style="background-color: #ffffff; --bs-gutter-x: 0">
+						<div class="col-md-6 m-5">
+							<div class="pb-1">
+								<p class="fs-5 fw-semibold">제품 설명란</p>
+								<c:if test="${product.description1 ne null}">
+									<p class="lh-base">${product.description1 }</p>
+								</c:if>
+								<c:if test="${product.description2 ne null}">
+									<p class="lh-base">${product.description2 }</p>
+								</c:if>
+								<c:if test="${product.description3 ne null}">
+									<p class="lh-base">${product.description3 }</p>
+								</c:if>
+							</div>
+							<div class="pb-1">
+								<p class="fs-5 fw-semibold">권장 복용법</p>
+								<p class="lh-base">${product.description }</p>
+							</div>
+							<div class="pb-1">
+								<p class="fs-5 fw-semibold">주의사항</p>
+								<p class="lh-base">${product.caution }</p>
+							</div>
+						</div>
+						<div class="col m-5">
+							<table class="table table-striped">
+								<thead>
+									<tr>
+										<th colspan="2" scope="col">
+											<p class="mt-0 fs-5 fw-semibold">
+												영양 성분 정보
+											</p>
+										</th>
+									</tr>
+								</thead>
+								<tbody>
+									<c:forEach items="${iList }" var="ingredient">
+										<tr>
+											<td>${ingredient.ingredientName }</td>
+											<td>${ingredient.servingAmount } ${ingredient.servingUnit }</td>
+										</tr>
+									</c:forEach>
+								</tbody>
+							</table>
 						</div>
 					</div>
 				</div>
 			</main>
 		</div>
-		<footer>
-			<img src="../resources/img/footer.png">
+		<footer class="d-flex flex-wrap justify-content-between align-items-center py-5 border-top" style="background-color: #F9FFFD; --bs-gutter-x: 0;">
+			<div class="col-md-1 d-flex justify-content-center align-items-center"></div>
+			<div class="col-md-4 pt-3 pb-2 d-flex justify-content-center align-items-center border-end border-1">
+				<img alt="" src="../resources/img/loogoo.png" style="height: 77px;">
+			</div>
+			<div class="col-md-3 d-flex justify-content-end align-items-center">
+				<img alt="" src="../resources/img/text.png" style="height: 95px;">
+			</div>
+			<div class="col-md-2 d-flex justify-content-center align-items-center"></div>
 		</footer>
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
         <script>

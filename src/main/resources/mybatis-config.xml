@@ -8,17 +8,19 @@
 	</settings>
 	<typeAliases>
 		<!-- VO가 생성될 때마다 추가(type->alias로 대체) -->
-		<typeAlias type="com.kh.buffer.member.domain.MemberVO" alias="Member"/>
-		<typeAlias type="com.kh.buffer.notice.domain.NoticeVO" alias="Notice"/>
-		<typeAlias type="com.kh.buffer.product.domain.ProductVO" alias="Product"/>
-		<typeAlias type="com.kh.buffer.survey.domain.SurveyVO" alias="Survey"/>
-		<typeAlias type="com.kh.buffer.survey.domain.OrderVO" alias="Order"/>
+		<typeAlias type="com.kh.buffer.member.domain.MemberVO" 	 alias="Member"/>
+		<typeAlias type="com.kh.buffer.notice.domain.NoticeVO"	  	 alias="Notice"/>
+		<typeAlias type="com.kh.buffer.product.domain.ProductVO" 	 alias="Product"/>
+		<typeAlias type="com.kh.buffer.product.domain.IngredientVO" alias="Ingredient"/>
+		<typeAlias type="com.kh.buffer.survey.domain.SurveyVO" 	 alias="Survey"/>
+		<typeAlias type="com.kh.buffer.survey.domain.OrderVO" 		 alias="Order"/>
 	</typeAliases>
 	<mappers>
 		<!-- mapper.xml이 생성될 때마다 추가 -->
 		<mapper resource="mappers/member-mapper.xml"></mapper>
 		<mapper resource="mappers/notice-mapper.xml"></mapper>
 		<mapper resource="mappers/product-mapper.xml"></mapper>
+		<mapper resource="mappers/ingredient-mapper.xml"></mapper>
 		<mapper resource="mappers/survey-mapper.xml"></mapper>
 	</mappers>
 </configuration>

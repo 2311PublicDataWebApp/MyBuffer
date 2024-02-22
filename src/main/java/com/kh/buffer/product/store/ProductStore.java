@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 
+import com.kh.buffer.product.domain.IngredientVO;
 import com.kh.buffer.product.domain.PageInfo;
 import com.kh.buffer.product.domain.ProductVO;
 
@@ -38,6 +39,12 @@ public interface ProductStore {
 	List<ProductVO> selectProductList(SqlSession session, PageInfo pInfo);
 
 	/**
+	 * 성분 리스트 Service
+	 * @return iList
+	 */
+	List<IngredientVO> selectIngredientByNo(SqlSession session, int productNo);
+	
+	/**
 	 * 제품코드 연동 Service
 	 * @param productNo
 	 * @return product
@@ -49,5 +56,7 @@ public interface ProductStore {
 	 * @return totalCount
 	 */
 	int getTotalCount(SqlSession session);
+
+
 
 }

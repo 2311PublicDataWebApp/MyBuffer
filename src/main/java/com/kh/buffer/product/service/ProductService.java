@@ -2,6 +2,7 @@ package com.kh.buffer.product.service;
 
 import java.util.List;
 
+import com.kh.buffer.product.domain.IngredientVO;
 import com.kh.buffer.product.domain.PageInfo;
 import com.kh.buffer.product.domain.ProductVO;
 
@@ -36,16 +37,23 @@ public interface ProductService {
 	List<ProductVO> selectProductList(PageInfo pInfo);
 
 	/**
-	 * 제품코드 연동 Service
+	 * 성분 리스트 Service
+	 * @return iList
+	 */
+	List<IngredientVO> selectIngredientByNo(int productNo);
+	/**
+	 * 제품 코드 연동 Service
 	 * @param productNo
 	 * @return product
 	 */
 	ProductVO selectProductByNo(int productNo);
-
+	
 	/**
 	 * 전체 제품 갯수 Service
 	 * @return totalCount
 	 */
 	int getTotalCount();
+
+
 
 }
