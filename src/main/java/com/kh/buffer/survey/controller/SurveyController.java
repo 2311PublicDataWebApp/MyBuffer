@@ -36,6 +36,7 @@ public class SurveyController {
 	public String submitSurvey(Model model
 			, @ModelAttribute SurveyVO survey) {
 		try {
+			
 			List<ProductVO> pList = sService.submitSurvey(survey);
 			if (pList != null) {
 				model.addAttribute("pList", pList);
