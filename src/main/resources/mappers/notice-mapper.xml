@@ -38,8 +38,8 @@
   	
   	<update id="updateNoticeImg">
   	UPDATE NOTICE_IMG_TBL
-  	SET NOTICE_FILENAME = #{noticeFileName }, NOTICE_FILERENAME = #{noticeFileRename }
-  	,NOTICE_FILEPATH = #{noticeFilepath }, NOTICE_FILESIZE = #{noticeFileSize }
+  	SET FILE_NAME = #{noticeFileName }, FILE_RENAME = #{noticeFileRename }
+  	,FILE_PATH = #{noticeFilepath }, FILE_SIZE = #{noticeFileSize }
   	WHERE NOTICE_NO = #{noticeNo }
   	</update>
   	

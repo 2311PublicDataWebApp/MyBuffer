@@ -4,10 +4,13 @@
 	<html>
 
 	<head>
-		<meta charset="UTF-8">
-		<title>공지사항 수정</title>
-		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+        <meta charset="UTF-8">
+        <title>MyBuffer</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
         <link rel="stylesheet" href="../resources/css/main.css">
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
 			integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
 			crossorigin="anonymous"></script>
@@ -115,9 +118,16 @@
 					</div>
 				</form>
 			</main>
-			<footer>
-				<img src="../resources/img/footer.png">
-			</footer>
+			<footer class="d-flex flex-wrap justify-content-between align-items-center py-5 border-top" style="background-color: #F9FFFD; --bs-gutter-x: 0;">
+            <div class="col-md-1 d-flex justify-content-center align-items-center"></div>
+            <div class="col-md-4 pt-3 pb-2 d-flex justify-content-center align-items-center border-end border-1">
+                <img alt="" src="../resources/img/loogoo.png" style="height: 77px;">
+            </div>
+            <div class="col-md-3 d-flex justify-content-end align-items-center">
+                <img alt="" src="../resources/img/text.png" style="height: 95px;">
+            </div>
+            <div class="col-md-2 d-flex justify-content-center align-items-center"></div>
+        </footer>
 		</div>
 		<script>
 		function showNoticePage() {

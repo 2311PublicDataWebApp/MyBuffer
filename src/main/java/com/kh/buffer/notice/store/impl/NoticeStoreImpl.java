@@ -45,6 +45,7 @@ public class NoticeStoreImpl implements NoticeStore {
 	public int upadateNotice(SqlSession session, NoticeVO notice) {
 		// TODO Auto-generated method stub
 				int result = session.update("NoticeMapper.updateNotice", notice);
+				result += session.update("NoticeMapper.updateNoticeImg", notice);
 				return result;
 	}
 
