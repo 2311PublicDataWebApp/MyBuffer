@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kh.buffer.product.domain.IngredientVO;
 import com.kh.buffer.product.domain.PageInfo;
 import com.kh.buffer.product.domain.ProductVO;
 import com.kh.buffer.product.service.ProductService;
@@ -48,14 +49,6 @@ public class ProductController {
 			, HttpServletRequest request
 			, HttpSession session) {
 		try {
-//			String loginId = null;
-//			if (session != null && loginId != null && !"".equals("ADMIN")) {
-//				model.addAttribute(loginId, loginId);
-//				return "redirect:/product/insert.kr";
-//			} else {
-//				model.addAttribute("msg", "권한이 없거나 로그인이 필요합니다!");
-//				return "common/errorPage";
-//			}
 			if(uploadFile != null && !uploadFile.getOriginalFilename().equals("")) {
 				Map<String, Object> infoMap = this.saveFile(uploadFile, request);
 				String fileName = (String)infoMap.get("fileName");
@@ -89,8 +82,10 @@ public class ProductController {
 	public ModelAndView showDetailForm(ModelAndView mv, int productNo) {
 		try {	
 			ProductVO product = pService.selectProductByNo(productNo);
+			List<IngredientVO> iList = pService.selectIngredientByNo(productNo);
 			if(product != null) {
 				mv.addObject("product", product);
+				mv.addObject("iList", iList);
 				mv.setViewName("product/productDetail");
 			}else {
 				mv.addObject("msg", "요청하신 서비스가 완료되지 못했습니다.");

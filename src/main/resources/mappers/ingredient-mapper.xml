@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="IngredientMapper">
+	<resultMap type="Ingredient" id="ingredientResultMap">
+        <id 	 	property="productNo" 			column="PRODUCT_NO" />
+  		<result property="ingredientCode" 		column="INGREDIENT_CODE"/>
+  		<result property="ingredientName" 		column="INGREDIENT_NAME"/>
+  		<result property="servingAmount" 		column="SERVING_AMOUNT"/>
+  		<result property="servingUnit" 			column="SERVING_UNIT"/>
+    </resultMap>
+    <select id="selectIngredientByNo" resultMap="ingredientResultMap">
+    	SELECT * FROM SERVING_IGD_TBL LEFT OUTER JOIN INGREDIENT_TBL USING(INGREDIENT_CODE) WHERE PRODUCT_NO = #{productNo }
+    </select>
+    <select id="selectIngredientList" resultMap="ingredientResultMap">
+    	SELECT * FROM SERVING_IGD_TBL LEFT OUTER JOIN INGREDIENT_TBL USING(INGREDIENT_CODE) ORDER BY PRODUCT_NO DESC
+    </select>
+</mapper>

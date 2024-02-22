@@ -6,6 +6,7 @@ import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.kh.buffer.product.domain.IngredientVO;
 import com.kh.buffer.product.domain.PageInfo;
 import com.kh.buffer.product.domain.ProductVO;
 import com.kh.buffer.product.store.ProductStore;
@@ -56,7 +57,16 @@ public class ProductStoreImpl implements ProductStore{
 	}
 
 	/**
-	 * 제품코드 연동 Service
+	 * 성분 리스트 Service
+	 */
+	@Override
+	public List<IngredientVO> selectIngredientByNo(SqlSession session, int productNo) {
+		List<IngredientVO> iList = session.selectList("IngredientMapper.selectIngredientByNo", productNo);
+		return iList;
+	}
+	
+	/**
+	 * 제품 코드 연동 Service
 	 */
 	@Override
 	public ProductVO selectProductByNo(SqlSession session, int productNo) {
@@ -72,5 +82,6 @@ public class ProductStoreImpl implements ProductStore{
 		int totalCount = session.selectOne("ProductMapper.selectTotalCount");
 		return totalCount;
 	}
+
 
 }

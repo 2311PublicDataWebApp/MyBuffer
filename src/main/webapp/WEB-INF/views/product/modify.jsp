@@ -9,9 +9,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>제품 수정 페이지</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+		<link rel="stylesheet" href="../resources/css/main.css">
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
 	</head>
-	<body class="bg-body-tertiary">
-		<header class="navbar navbar-expand-lg bd-navbar shadow-sm">
+	<body style="background-color: #f9f9f9;">
+		<header class="navbar navbar-expand-lg bd-navbar shadow-sm py-2 mb-5" style="background-color: #ffffff;">
 			<nav class="container" aria-label="Main navigation">
 				<div class="d-flex" style="width: 4.25rem;"></div>
 				<div class="d-flex">
@@ -135,8 +139,15 @@
 				<div class="row mb-5"></div>
 			</main>
 		</div>
-		<footer>
-			<img src="../resources/img/footer.png">
+		<footer class="d-flex flex-wrap justify-content-between align-items-center py-5 border-top" style="background-color: #F9FFFD; --bs-gutter-x: 0;">
+			<div class="col-md-1 d-flex justify-content-center align-items-center"></div>
+			<div class="col-md-4 pt-3 pb-2 d-flex justify-content-center align-items-center border-end border-1">
+				<img alt="" src="../resources/img/loogoo.png" style="height: 77px;">
+			</div>
+			<div class="col-md-3 d-flex justify-content-end align-items-center">
+				<img alt="" src="../resources/img/text.png" style="height: 95px;">
+			</div>
+			<div class="col-md-2 d-flex justify-content-center align-items-center"></div>
 		</footer>
 		<script type="text/javascript">
 			function showProductList() {
