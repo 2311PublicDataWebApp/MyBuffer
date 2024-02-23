@@ -35,9 +35,24 @@
     <select id="selectProductByNo" resultMap="productResultMap">
     	SELECT * FROM PRODUCT_TBL LEFT OUTER JOIN PRODUCT_IMG_TBL ON PRODUCT_TBL.PRODUCT_NO = PRODUCT_IMG_TBL.PRODUCT_NO WHERE PRODUCT_TBL.PRODUCT_NO = #{productNo }
     </select>
-<!--     <select id="selectProductImgByNo" resultMap="productResultMap"> -->
-<!--     	SELECT * FROM PRODUCT_IMG_TBL WHERE PRODUCT_NO = #{productNo } -->
-<!--     </select> -->
+    <select id="selectProductsByKeyword" resultMap="productResultMap">
+		SELECT * FROM PRODUCT_TBL LEFT OUTER JOIN PRODUCT_IMG_TBL USING (PRODUCT_NO)
+		<if test="searchCondition == 'productName'">
+			WHERE LOWER(PRODUCT_NAME) LIKE '%'||#{searchKeyword }||'%'
+		</if>
+		<if test="searchCondition == 'brandName'">
+			WHERE LOWER(BRAND_NAME) LIKE '%'||#{searchKeyword }||'%'
+		</if>
+	</select>
+    <select id="selectSearchTotalCount" resultType="_int">
+		SELECT COUNT(*) FROM PRODUCT_TBL LEFT OUTER JOIN PRODUCT_IMG_TBL USING (PRODUCT_NO)
+		<if test="searchCondition == 'productName'">
+			WHERE PRODUCT_NAME LIKE '%'||#{searchKeyword }||'%'
+		</if>
+		<if test="searchCondition == 'brandName'">
+			WHERE BRAND_NAME LIKE '%'||#{searchKeyword }||'%'
+		</if>
+	</select>
     <insert id="insertProduct">
     	INSERT INTO PRODUCT_TBL VALUES(SEQ_PRODUCT_NO.NEXTVAL, #{productName }, #{brandName }, #{price }, #{servingSize }, TO_DATE(#{expiredDate },'YY/MM/DD'), #{ageCode }, #{gender }, #{caution }, #{description }, #{description1 }, #{description2 }, #{description3 })
     </insert>

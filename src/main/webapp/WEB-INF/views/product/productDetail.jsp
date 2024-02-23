@@ -34,20 +34,21 @@
 							<path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1" />
 						</svg>
 					</button>
-					<ul class="dropdown-menu">
+					<ul class="dropdown-menu dropdown-menu-end">
 						<c:if test="${memberId eq null }">
 							<li><a class="dropdown-item" href="/member/login.do">로그인</a></li>
 							<li><a class="dropdown-item" href="/member/register.do">회원가입</a></li>
 						</c:if>
 						<c:if test="${memberId ne null }">
 							<c:if test="${memberId ne 'admin' }">
-								<li><a class="dropdown-item" href="/member/logout.do">로그아웃</a></li>
 								<li><a class="dropdown-item" href="/member/updatemember.do">정보 수정</a></li>
+								<li><a class="dropdown-item" href="/member/logout.do">로그아웃</a></li>
 							</c:if>
 							<c:if test="${memberId eq 'admin' }">
-								<li><a class="dropdown-item" href="/member/logout.do">로그아웃</a></li>
 								<li><a class="dropdown-item" href="/member/list.do">회원 목록</a></li>
 								<li><a class="dropdown-item" href="/product/list.do">제품 목록</a></li>
+								<li><hr class="dropdown-divider"></li>
+								<li><a class="dropdown-item" href="/member/logout.do">로그아웃</a></li>
 							</c:if>
 						</c:if>
 					</ul>
@@ -56,7 +57,7 @@
 		</header>
 		<div class="container-cover">
 			<main>
-				<div class="row gap-5 p-5 p-md-5 justify-content-md-center text-body-emphasis" style="--bs-gutter-x: 0;">
+				<div class="row gap-5 p-5 p-md-5 justify-content-md-center text-body-emphasis border-bottom" style="--bs-gutter-x: 0;">
 					<div class="col-md-3 px-0 pt-4">
 						<c:if test="${product.productFileName ne null }">
 							<div style="text-align: center;"><img src="../resources/puploadFiles/${product.productFileRename }" style="width: 340px;" alt="제품 이미지"></div>
@@ -69,21 +70,20 @@
 						<div>
 							<div class="row d-flex pt-3 mb-3 justify-content-center border-bottom" style="--bs-gutter-x: 0;">
 								<div class="d-flex col-md-12 justify-content-start align-items-start">
-									<p class="fs-3 fw-semibold">${product.productName }</p>
+									<p class="fw-semibold" style="font-size: 25px;">${product.productName }</p>
 								</div>
 							</div>
-							<div class="row d-flex pt-1 justify-content-center" style="--bs-gutter-x: 0;">
-								<div class="d-flex col-md-10 justify-content-start align-items-start">
+							<div class="row d-flex justify-content-center" style="--bs-gutter-x: 0;">
+								<div class="d-flex col-md-12 justify-content-start align-items-start">
 									<p class="fs-5 fw-medium">${product.brandName }</p>
 								</div>
-								<div class="d-flex col-md-2"></div>
 							</div>
-							<div class="row d-flex pt-3 mb-1 justify-content-center border-top" style="--bs-gutter-x: 0;">
+							<div class="row d-flex pt-3 mb-0 justify-content-center border-top" style="--bs-gutter-x: 0;">
 								<div class="d-flex col-md-3 justify-content-start align-items-start">
-									<p class="fs-6">제공수량</p>
+									<p class="fw-medium" style="color: #616161;">제공수량</p>
 								</div>
 								<div class="d-flex col-md-5 justify-content-start align-items-start">
-									<p class="fs-6">${product.servingSize } 정</p>
+									<p class="fw-medium" style="color: #616161;">${product.servingSize } 정</p>
 								</div>
 								<div class="d-flex col-md-4 justify-content-start align-items-start"></div>
 							</div>
@@ -91,24 +91,24 @@
 							<fmt:formatDate value="${expiredDate }" pattern="yyyy년 MM월 dd일"  var="eDate"/>
 							<div class="row d-flex justify-content-center border-bottom" style="--bs-gutter-x: 0;">
 								<div class="d-flex col-md-3 justify-content-start align-items-center">
-									<p class="fs-6">소비기한</p>
+									<p class="fw-medium" style="color: #616161;">소비기한</p>
 								</div>
 								<div class="d-flex col-md-8 justify-content-start align-items-center">
-									<p class="fs-6">${eDate }</p>
+									<p class="fw-medium" style="color: #616161;">${eDate }</p>
 								</div>
 								<div class="d-flex col-md-1"></div>
 							</div>
-							<div class="row d-flex pt-2 justify-content-center align-items-center" style="--bs-gutter-x: 0;">
+							<div class="row d-flex pt-3 justify-content-center align-items-center" style="--bs-gutter-x: 0;">
 								<div class="d-flex col-md-3 justify-content-start">
-									<p class="fs-6">판매가격</p>
+									<p class="fw-medium" style="color: #616161;">판매가격</p>
 								</div>
 								<div class="d-flex col-md-5 justify-content-center">
-									<p class="fs-3 fw-semibold">₩${product.price }</p>
+									<p class="fw-semibold" style="font-size: 30px;"> ₩ ${product.price }</p>
 								</div>
 								<div class="d-flex col-md-4"></div>
 							</div>
-							<div class="my-3 d-grid gap-5 d-md-flex justify-content-md-center">
-								<button type="button" class="btn btn-lg rounded-pill shadow-sm" style="width: 250px; height: 55px; background-color: #04D9C4; color: #ffffff; --bs-gutter-x: 0" onclick="checkLogin('${memberId}', ${product.productNo });">구매하기</button>
+							<div class="my-4 d-grid gap-5 d-md-flex justify-content-md-center">
+								<button type="button" class="btn btn-lg rounded-pill shadow-sm" style="width: 270px; height: 58px; background-color: #04D9C4; color: #ffffff; font-size: 20px; --bs-gutter-x: 0" onclick="checkLogin('${memberId}', ${product.productNo });">구매하기</button>
 							</div>
 						</div>
 					</div>
