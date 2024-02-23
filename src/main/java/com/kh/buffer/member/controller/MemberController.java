@@ -152,14 +152,14 @@ public class MemberController {
 //------------------------------회원 가입-------------------------------------------------------    
 	@RequestMapping(value = "/member/register.do", method = RequestMethod.GET)
 	public String showRegisterPage() {
-		return "member/insert";
+		return "member/register";
 	}
 
 	@RequestMapping(value = "/member/register.do", method = RequestMethod.POST)
 	public String registerPage(@ModelAttribute MemberVO member, Model model) {
 		try {
 
-			int result = mService.insertMember(member);
+			int result = mService.registerMember(member);
 			if (result > 0) {
 				// 로그인 페이지
 				return "redirect:/index.jsp";

@@ -15,7 +15,7 @@ public interface MemberStore {
 	 * @param member
 	 * @return result
 	 */
-	int insertMember(SqlSession session, MemberVO member);
+	int registerMember(SqlSession session, MemberVO member);
 	
 	/**
 	 * 회원 로그인 Store

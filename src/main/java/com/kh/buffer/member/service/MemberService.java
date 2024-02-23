@@ -12,7 +12,7 @@ public interface MemberService {
 	 * @param member
 	 * @return result
 	 */
-	int insertMember(MemberVO member);
+	int registerMember(MemberVO member);
 
 	/**
 	 * 회원 로그인 Service
