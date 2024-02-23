@@ -20,8 +20,8 @@ public class MemberServiceImpl implements MemberService {
 	private SqlSession session;
 
 	@Override
-	public int insertMember(MemberVO member) {
-		int result = mStore.insertMember(session, member);
+	public int registerMember(MemberVO member) {
+		int result = mStore.registerMember(session, member);
 		return result;
 	}
 

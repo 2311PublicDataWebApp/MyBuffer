@@ -13,8 +13,8 @@ import com.kh.buffer.member.store.MemberStore;
 public class MemberStoreImpl implements MemberStore {
 
 	@Override
-	public int insertMember(SqlSession session, MemberVO member) {
-		int result = session.insert("MemberMapper.insertMember", member);
+	public int registerMember(SqlSession session, MemberVO member) {
+		int result = session.insert("MemberMapper.registerMember", member);
 		return result;
 	}
 

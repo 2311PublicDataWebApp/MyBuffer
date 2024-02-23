@@ -13,7 +13,8 @@
 		<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
     </head>
     <body>
-	<header class="navbar navbar-expand-lg bd-navbar shadow-sm py-2 mb-5" style="background-color: #ffffff;">
+
+<header class="navbar navbar-expand-lg bd-navbar shadow-sm py-2 mb-5" style="background-color: #ffffff;">
 			<nav class="container" aria-label="Main navigation">
 				<div class="d-flex" style="width: 4.25rem;"></div>
 				<div class="d-flex">
@@ -51,24 +52,29 @@
 					</ul>
 				</div>
 			</nav>
-		</header>
-        <div class="container"> 
-            <main class="my-5">				
-				<h1>비밀번호 변경하기</h1>
-    <form action="/member/changepassword.do" method="post">
-    	<input type="hidden" name="memberId" value="${memberId }">
-        <div>
-            <label for="userId">새로운 비밀번호</label>
-            <input type="password" id="memberPw" name="memberPw" placeholder="새로운 비밀번호를 입력하세요">
-        </div>        
-   		<button type="submit">비밀번호 변경</button>
-        <br><br>   
-        <a href="/member/findid.do" >아이디 찾기</a>
-        <a href="/member/findpassword.do" >비밀번호 찾기</a>
-        <a href="/member/insert.do" >회원가입</a>
-    </form>
-            </main>
+</header>
+<div class="container">
+    <main class="my-5 d-flex justify-content-center align-items-center">
+        <div class="card p-4" style="width: 25rem;">
+            <div class="card-body text-center">
+                <h1 class="font-weight-bold mb-4">비밀번호 변경하기</h1>
+                <form action="/member/changepassword.do" method="post">
+                    <input type="hidden" name="memberId" value="${memberId}">
+                    <div class="mb-3">
+                        <label for="memberPw" class="form-label font-weight-bold">새로운 비밀번호</label>
+                        <input type="password" id="memberPw" name="memberPw" class="form-control" placeholder="새로운 비밀번호를 입력하세요">
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-lg">비밀번호 변경</button>
+                </form>
+                <div class="mt-3">
+                    <a href="/member/findid.do" class="text-dark font-weight-bold">아이디 찾기</a>
+                    <a href="/member/findpassword.do" class="text-dark font-weight-bold mx-3">비밀번호 찾기</a>
+                    <a href="/member/register.do" class="text-dark font-weight-bold">회원가입</a>
+                </div>
+            </div>
         </div>
+    </main>
+</div>
         <footer class="d-flex flex-wrap justify-content-between align-items-center py-5 border-top" style="background-color: #F9FFFD; --bs-gutter-x: 0;">
             <div class="col-md-1 d-flex justify-content-center align-items-center"></div>
             <div class="col-md-4 pt-3 pb-2 d-flex justify-content-center align-items-center border-end border-1">

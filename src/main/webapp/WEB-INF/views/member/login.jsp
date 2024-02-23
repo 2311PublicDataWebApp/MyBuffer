@@ -26,62 +26,63 @@
 					</ul>
 				</div>
 				<div class="d-flex btn-group">
-					<button class="btn btn-body dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="border-color: white;">
-						<svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" fill="#818181" class="bi bi-person-circle" viewBox="0 0 16 16">
-							<path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
-							<path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1" />
-						</svg>
-					</button>
-					<ul class="dropdown-menu">
-						<c:if test="${memberId eq null }">
-							<li><a class="dropdown-item" href="/member/login.do">로그인</a></li>
-							<li><a class="dropdown-item" href="/member/register.do">회원가입</a></li>
-						</c:if>
-						<c:if test="${memberId ne null }">
-							<c:if test="${memberId ne 'admin' }">
-								<li><a class="dropdown-item" href="/member/logout.do">로그아웃</a></li>
-								<li><a class="dropdown-item" href="/member/updatemember.do">정보 수정</a></li>
-							</c:if>
-							<c:if test="${memberId eq 'admin' }">
-								<li><a class="dropdown-item" href="/member/logout.do">로그아웃</a></li>
-								<li><a class="dropdown-item" href="/member/list.do">회원 목록</a></li>
-								<li><a class="dropdown-item" href="/product/list.do">제품 목록</a></li>
-							</c:if>
-						</c:if>
-					</ul>
-				</div>
+                    <button class="btn btn-body dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="border-color: white;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" fill="#818181" class="bi bi-person-circle" viewBox="0 0 16 16">
+                            <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
+                            <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1" />
+                        </svg>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <c:if test="${memberId eq null }">
+                            <li><a class="dropdown-item" href="/member/login.do">로그인</a></li>
+                            <li><a class="dropdown-item" href="/member/register.do">회원가입</a></li>
+                        </c:if>
+                        <c:if test="${memberId ne null }">
+                            <c:if test="${memberId ne 'admin' }">
+                                <li><a class="dropdown-item" href="/member/updatemember.do">정보 수정</a></li>
+                                <li><a class="dropdown-item" href="/member/logout.do">로그아웃</a></li>
+                            </c:if>
+                            <c:if test="${memberId eq 'admin' }">
+                                <li><a class="dropdown-item" href="/member/list.do">회원 목록</a></li>
+                                <li><a class="dropdown-item" href="/product/list.do">제품 목록</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="/member/logout.do">로그아웃</a></li>
+                            </c:if>
+                        </c:if>
+                    </ul>
+                </div>
 			</nav>
-		</header>    
-        <div class="container">
-
-			
-            <main class="my-5">
-            <div class="container mt-5 d-flex justify-content-center align-items-center">
-			    <form action="/member/login.do" method="post">
-			    <h1 class="mb-4 text-center"style="color: black; font-weight: bold;">로그인</h1>
-                <div class="mb-3">
-                    <label for="userId" class="form-label"style="color: black; font-weight: bold;">아이디를 입력하세요</label>
-                    <input type="text" class="form-control" id="userId" name="memberId">
-                </div>
-                <div class="mb-3">
-                    <label for="password" class="form-label"style="color: black; font-weight: bold;">비밀번호를 입력하세요</label>
-                    <input type="password" class="form-control" id="password" name="memberPw">
-                </div>
-                <div class="mb-3 form-check">
-                    <input type="checkbox" class="form-check-input" id="save" name="save">
-                    <label class="form-check-label" for="save"style="color: black; font-weight: bold;">아이디 저장</label>
-                </div>
-        		<div class="text-center">
-    			<button type="submit" class="btn btn-primary"style="color: black; font-weight: bold;">로그인</button>
-				</div>
-                <br><br>
-                <a href="/member/findid.do"style="color: black; font-weight: bold;">아이디 찾기</a>
-                <a href="/member/findpassword.do"style="color: black; font-weight: bold;">비밀번호 찾기</a>
-                <a href="/member/insert.do"style="color: black; font-weight: bold;">회원가입</a>
+</header>
+       <div class="container">
+    <main class="my-5">
+        <div class="container mt-5 d-flex justify-content-center align-items-center">
+            <div class="card shadow p-3 mb-5 bg-white rounded" style="width: 25rem;">
+                <form action="/member/login.do" method="post" class="p-3" id="loginForm">
+                    <h1 class="mb-4 text-center" style="color: black; font-weight: bold;">로그인</h1>
+                    <div class="mb-3">
+                        <label for="userId" class="form-label" style="color: black; font-weight: bold;">아이디를 입력하세요</label>
+                        <input type="text" class="form-control" id="userId" name="memberId">
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label" style="color: black; font-weight: bold;">비밀번호를 입력하세요</label>
+                        <input type="password" class="form-control" id="password" name="memberPw">
+                    </div>
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" class="form-check-input" id="save" name="save">
+                        <label class="form-check-label" for="save" id="save" style="color: black; font-weight: bold;">아이디 저장</label>
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary" style="font-weight: bold;">로그인</button>
+                    </div>
+                    <br><br>
+                    <a href="/member/findid.do" style="color: black; font-weight: bold;">아이디 찾기</a>
+                    <a href="/member/findpassword.do" style="color: black; font-weight: bold;">비밀번호 찾기</a>
+                    <a href="/member/register.do" style="color: black; font-weight: bold;">회원가입</a>
                 </form>
             </div>
-            </main>
-            </div>
+        </div>
+    </main>
+</div>
                 <footer class="d-flex flex-wrap justify-content-between align-items-center py-5 border-top" style="background-color: #F9FFFD; --bs-gutter-x: 0;">
             <div class="col-md-1 d-flex justify-content-center align-items-center"></div>
             <div class="col-md-4 pt-3 pb-2 d-flex justify-content-center align-items-center border-end border-1">
@@ -93,5 +94,55 @@
             <div class="col-md-2 d-flex justify-content-center align-items-center"></div>
         </footer>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+		<script>
+        // 저장된 아이디 불러오기 
+        window.onload = function() {
+            var savedId = getCookie("savedId");
+            if (savedId) {
+                document.getElementById("userId").value = savedId;
+                document.getElementById("save").checked = true;
+            }
+        };
+
+        // 폼 제출 시 아이디 저장 여부에 따라 쿠키 설정
+        document.getElementById("loginForm").addEventListener("submit", function(event) {
+            var userId = document.getElementById("userId").value;
+            var saveChecked = document.getElementById("save").checked;
+
+            if (saveChecked) {
+                setCookie("savedId", userId, 30);
+            } else {
+                deleteCookie("savedId");
+            }
+        });
+
+        // 쿠키 설정 함수
+        function setCookie(name, value, days) {
+            var expires = "";
+            if (days) {
+                var date = new Date();
+                date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                expires = "; expires=" + date.toUTCString();
+            }
+            document.cookie = name + "=" + (value || "") + expires + "; path=/";
+        }
+
+        // 쿠키 가져오기 함수
+        function getCookie(name) {
+            var nameEQ = name + "=";
+            var ca = document.cookie.split(';');
+            for (var i = 0; i < ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+                if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+            }
+            return null;
+        }
+
+        // 쿠키 삭제 함수
+        function deleteCookie(name) {
+            document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        }
+        </script>
     </body>
 </html>
