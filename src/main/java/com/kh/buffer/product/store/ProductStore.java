@@ -1,6 +1,7 @@
 package com.kh.buffer.product.store;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
@@ -56,6 +57,15 @@ public interface ProductStore {
 	 * @return totalCount
 	 */
 	int getTotalCount(SqlSession session);
+
+	/**
+	 * 검색 제품 갯수 Service
+	 * @param paramMap
+	 * @return totalCount
+	 */
+	int getTotalCount(SqlSession session, Map<String, String> paramMap);
+
+	List<ProductVO> selectProductsByKeyword(SqlSession session, PageInfo pInfo, Map<String, String> paramMap);
 
 
 

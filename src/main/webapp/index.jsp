@@ -32,35 +32,90 @@
 							<path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1" />
 						</svg>
 					</button>
-					<ul class="dropdown-menu">
+					<ul class="dropdown-menu dropdown-menu-end">
 						<c:if test="${memberId eq null }">
 							<li><a class="dropdown-item" href="/member/login.do">로그인</a></li>
 							<li><a class="dropdown-item" href="/member/register.do">회원가입</a></li>
 						</c:if>
 						<c:if test="${memberId ne null }">
 							<c:if test="${memberId ne 'admin' }">
-								<li><a class="dropdown-item" href="/member/logout.do">로그아웃</a></li>
 								<li><a class="dropdown-item" href="/member/updatemember.do">정보 수정</a></li>
+								<li><a class="dropdown-item" href="/member/logout.do">로그아웃</a></li>
 							</c:if>
 							<c:if test="${memberId eq 'admin' }">
-								<li><a class="dropdown-item" href="/member/logout.do">로그아웃</a></li>
 								<li><a class="dropdown-item" href="/member/list.do">회원 목록</a></li>
 								<li><a class="dropdown-item" href="/product/list.do">제품 목록</a></li>
+								<li><hr class="dropdown-divider"></li>
+								<li><a class="dropdown-item" href="/member/logout.do">로그아웃</a></li>
 							</c:if>
 						</c:if>
 					</ul>
 				</div>
 			</nav>
 		</header>
-        <div class="container">
+        <div class="cover-container d-flex w-100 h-100 mx-auto flex-column shadow-sm">
             <main class="">
-				<div style="width: auto; height: 500px; background-color: #F1FFFC;">
-					<button type="button" onclick="showSurvey();" class="btn btn-lg rounded-pill shadow-sm" style="width: 250px; height: 55px; background-color: #53DBDB; color: #ffffff;">추천 받기</button>
-				</div>
-				<div style="width: auto; height: 500px; background-color: #FFFFFF;">
-					<button type="button" onclick="showNotice();" class="btn btn-lg rounded-pill shadow-sm" style="width: 250px; height: 55px; background-color: #55E5D1; color: #ffffff;">공지사항</button>
+				<div class="p-5" style="width: auto; height: 727px; background-image: url('../resources/img/section1.png');">
+<!-- 				background-color: #F1FFFC; -->
+					<div class="p-5">
+						<div class="row d-flex mb-3">
+							<div class="col-md-1"></div>
+							<div class="col-md-11">
+								<p class="fw-bold lh-sm" style="color: #55E5D1; font-size: 90px;">나만의 버퍼와<br>함께해요!</p>
+							</div>
+						</div>
+						<div class="flex-row d-flex py-3">
+							<div class="col-md-1"></div>
+							<div class="col-md-11">
+								<p class="fw-light" style="color: #00C8B4; font-size: 34px;">영양제가 처음인 영린이들이 위해!<br>설문조사를 통해 영양제에 한 발짝 더 가까이<br>추천을 받아 버프 업!</p>
+							</div>
+						</div>
+						<div class="flex-row d-flex py-3 justify-content-center">
+							<div class="col-md-8"></div>
+							<div class="col-md-2 justify-content-center align-items-end">
+								<button type="button" onclick="showSurvey();" class="btn btn-lg rounded-pill shadow-sm" style="width: 280px; height: 80px; background-color: #53DBDB; color: #ffffff; font-size: 23px;">추천 받기</button>
+							</div>
+							<div class="col-md-2"></div>
+						</div>
+					</div>
 				</div>
             </main>
+        </div>
+        <div class="container my-5">
+        		<div class="p-5 text-center rounded-4" style="background-color: #FCFCFC;">
+        			<img class="bi mt-4 mb-3" alt="" src="../resources/img/logoCircle.png" style="width: 110px;">
+        			<p class="fw-bold lh-sm" style="font-size: 40px;">공지사항</p>
+        			<p class="col-lg-8 mx-auto fs-5 text-muted">
+        				나만의 버퍼의 제품 업데이트와 다양한 소식을 들어보세요.
+    			</p>
+        			<div class="d-inline-flex gap-2 my-4">
+					<button type="button" onclick="showNotice();" class="btn btn-outline-secondary btn-lg px-4 rounded-pill" style="width: 250px; height: 60px; font-size: 19px;">보러가기</button>
+        			</div>
+        		</div>
+        </div>
+        <div class="d-flex flex-column">
+        		<div style="height: 405px; background-color: #99EBB5;">
+        			<div class="p-5 align-items-center">
+					<div class="row d-flex mt-4 mb-3">
+						<div class="col-md-1"></div>
+						<div class="col-md-11">
+							<p class="fw-bold lh-sm" style="color: #ffffff; font-size: 53px;">
+								건강한 삶을 위한 여정.<br>지금 '나만의 버퍼'와 함께하세요.
+							</p>
+						</div>
+					</div>
+					<div class="flex-row d-flex">
+						<div class="col-md-1"></div>
+						<div class="col-md-11">
+							<p class="fw-normal" style="color: #ffffff; font-size: 22px;">
+								'나만의 버퍼'에서는 당신을 위한 특별한 정보, 건강에 대한 새로운 시각을 선사합니다.<br>
+								지금 바로 '나만의 버퍼'를 만나세요.<br>
+								당신의 건강한 삶을 응원합니다!
+							</p>
+						</div>
+					</div>
+				</div>
+        		</div>
         </div>
         <footer class="d-flex flex-wrap justify-content-between align-items-center py-5 border-top" style="background-color: #F9FFFD; --bs-gutter-x: 0;">
             <div class="col-md-1 d-flex justify-content-center align-items-center"></div>

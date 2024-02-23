@@ -32,7 +32,7 @@ public class ProductController {
 	private ProductService pService;
 
 	/**
-	 * 게시물 등록 페이지, /product/insert.kr을 주소표시줄에 입력하면 insert.jsp가 나타나도록
+	 * 제품 등록 페이지, /product/insert.kr을 주소표시줄에 입력하면 insert.jsp가 나타나도록
 	 */
 	@RequestMapping(value = "/product/insert.do", method = RequestMethod.GET)
 	public String showInsertForm(Model model) {
@@ -40,7 +40,7 @@ public class ProductController {
 	}
 
 	/**
-	 * 게시물 등록 POST
+	 * 제품 등록 POST
 	 */
 	@RequestMapping(value = "/product/insert.do", method = RequestMethod.POST)
 	public String insertProduct(Model model
@@ -76,7 +76,7 @@ public class ProductController {
 	}
 
 	/**
-	 * 게시물 상세 페이지
+	 * 제품 상세 페이지
 	 */
 	@RequestMapping(value = "/product/productDetail.do", method = RequestMethod.GET)
 	public ModelAndView showDetailForm(ModelAndView mv, int productNo) {
@@ -99,7 +99,36 @@ public class ProductController {
 	}
 	
 	/**
-	 * 게시물 수정 페이지
+	 * 제품 검색
+	 */
+		@RequestMapping(value = "/product/search.do", method = RequestMethod.GET)
+		public ModelAndView searchProductList(ModelAndView mv
+				, @RequestParam("searchCondition") String searchCondition
+				, @RequestParam("searchKeyword") String searchKeyword
+				, @RequestParam(value = "page", required = false, defaultValue = "1")
+				Integer currentPage) {
+			try {
+				Map<String, String> paramMap = new HashMap<String, String>();
+				searchKeyword = searchKeyword.toLowerCase();
+				paramMap.put("searchCondition", searchCondition);
+				paramMap.put("searchKeyword", searchKeyword);
+				int totalCount = pService.getTotalCount(paramMap);
+				PageInfo pInfo = this.getPageInfo(currentPage, totalCount);
+				List<ProductVO> productList = pService.selectProductsByKeyword(pInfo, paramMap);
+				mv.addObject("searchCondition", searchCondition);
+				mv.addObject("searchKeyword", searchKeyword);
+				mv.addObject("pList", productList);
+				mv.addObject("pInfo", pInfo);
+				mv.setViewName("product/search");
+			} catch (Exception e) {
+				mv.addObject("msg", e.getMessage());
+				mv.setViewName("common/errorPage");
+			}
+			return mv;
+		}
+	
+	/**
+	 * 제품 수정 페이지
 	 */
 	@RequestMapping(value = "/product/modify.do", method = RequestMethod.GET)
 	public String showModifyForm(Model model, int productNo) {
@@ -109,7 +138,7 @@ public class ProductController {
 	}
 
 	/**
-	 * 게시물 수정 POST
+	 * 제품 수정 POST
 	 */
 	@RequestMapping(value = "/product/modify.do", method = RequestMethod.POST)
 	public ModelAndView modifyProduct(ModelAndView mv
@@ -146,7 +175,7 @@ public class ProductController {
 	}
 
 	/**
-	 * 게시물 삭제
+	 * 제품 삭제
 	 */
 	@RequestMapping(value = "/product/delete.do", method = RequestMethod.GET)
 	public ModelAndView deleteProduct(ModelAndView mv, int productNo) {
@@ -166,7 +195,7 @@ public class ProductController {
 	}
 	
 	/**
-	 * 게시물 리스트 목록 GET
+	 * 제품 리스트 목록 GET
 	 */
 	@RequestMapping(value = "/product/list.do", method = RequestMethod.GET)
 	public String showProductList(Model model

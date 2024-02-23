@@ -34,20 +34,21 @@
 							<path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1" />
 						</svg>
 					</button>
-					<ul class="dropdown-menu">
+					<ul class="dropdown-menu dropdown-menu-end">
 						<c:if test="${memberId eq null }">
 							<li><a class="dropdown-item" href="/member/login.do">로그인</a></li>
 							<li><a class="dropdown-item" href="/member/register.do">회원가입</a></li>
 						</c:if>
 						<c:if test="${memberId ne null }">
 							<c:if test="${memberId ne 'admin' }">
-								<li><a class="dropdown-item" href="/member/logout.do">로그아웃</a></li>
 								<li><a class="dropdown-item" href="/member/updatemember.do">정보 수정</a></li>
+								<li><a class="dropdown-item" href="/member/logout.do">로그아웃</a></li>
 							</c:if>
 							<c:if test="${memberId eq 'admin' }">
-								<li><a class="dropdown-item" href="/member/logout.do">로그아웃</a></li>
 								<li><a class="dropdown-item" href="/member/list.do">회원 목록</a></li>
 								<li><a class="dropdown-item" href="/product/list.do">제품 목록</a></li>
+								<li><hr class="dropdown-divider"></li>
+								<li><a class="dropdown-item" href="/member/logout.do">로그아웃</a></li>
 							</c:if>
 						</c:if>
 					</ul>
@@ -129,8 +130,8 @@
 								</div>
 								<br>
 								<div class="my-4 d-grid gap-5 d-md-flex justify-content-md-center">
-									<button type="submit" class="btn btn-lg rounded-pill shadow-sm" style="width: 220px; height: 60px; background-color: #04D9C4; color: #ffffff;">수정하기</button>
-									<button type="button" class="btn btn-light btn-lg rounded-pill shadow-sm" onclick="showProductList();" style="width: 220px; height: 60px; background-color: #AAAAAA; color: #ffffff;">이전으로</button>
+									<button type="submit" class="btn btn-lg rounded-pill shadow-sm" style="width: 230px; height: 60px; background-color: #04D9C4; color: #ffffff; font-size: 18px;">수정하기</button>
+									<button type="button" class="btn btn-light btn-lg rounded-pill shadow-sm" onclick="showProductList();" style="width: 230px; height: 60px; background-color: #BEBEBE; color: #ffffff; font-size: 18px;">이전으로</button>
 								</div>
 							</form>
 						</div>
