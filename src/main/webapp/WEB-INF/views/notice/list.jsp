@@ -5,7 +5,7 @@
 <head>
 	<head>
 	<meta charset="UTF-8">
-	<title>MyBuffer</title>
+	<title>공지사항 목록</title>
 		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 		<link rel="stylesheet" href="../resources/css/main.css">
 		<link rel="preconnect" href="https://fonts.googleapis.com">
@@ -44,11 +44,12 @@
                                 <li><a class="dropdown-item" href="/member/logout.do">로그아웃</a></li>
                             </c:if>
                             <c:if test="${memberId eq 'admin' }">
-                                <li><a class="dropdown-item" href="/member/list.do">회원 목록</a></li>
-                                <li><a class="dropdown-item" href="/product/list.do">제품 목록</a></li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="/member/logout.do">로그아웃</a></li>
-                            </c:if>
+							  <li><a class="dropdown-item" href="/notice/list.do">공지 목록</a></li>
+							  <li><a class="dropdown-item" href="/product/list.do">제품 목록</a></li>
+							  <li><a class="dropdown-item" href="/member/list.do">회원 목록</a></li>
+							  <li><hr class="dropdown-divider"></li>
+							  <li><a class="dropdown-item" href="/member/logout.do">로그아웃</a></li>
+							</c:if>
                         </c:if>
                     </ul>
                 </div>
