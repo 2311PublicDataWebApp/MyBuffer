@@ -45,8 +45,9 @@
 								<li><a class="dropdown-item" href="/member/logout.do">로그아웃</a></li>
 							</c:if>
 							<c:if test="${memberId eq 'admin' }">
-								<li><a class="dropdown-item" href="/member/list.do">회원 목록</a></li>
+								<li><a class="dropdown-item" href="/notice/list.do">공지 목록</a></li>
 								<li><a class="dropdown-item" href="/product/list.do">제품 목록</a></li>
+								<li><a class="dropdown-item" href="/member/list.do">회원 목록</a></li>
 								<li><hr class="dropdown-divider"></li>
 								<li><a class="dropdown-item" href="/member/logout.do">로그아웃</a></li>
 							</c:if>
@@ -55,7 +56,7 @@
 				</div>
 			</nav>
 		</header>
-		<div class="container">
+		<div class="container" style="min-height: 480px;">
 			<main class="mx-auto">
 				<div class="row mt-5 mb-5"></div>
 				<div class="row justify-content-center">
