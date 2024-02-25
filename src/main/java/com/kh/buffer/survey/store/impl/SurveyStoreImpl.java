@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.buffer.product.domain.ProductVO;
 import com.kh.buffer.survey.domain.OrderVO;
+import com.kh.buffer.survey.domain.RecommendVO;
 import com.kh.buffer.survey.domain.SurveyVO;
 import com.kh.buffer.survey.store.SurveyStore;
 
@@ -26,15 +27,19 @@ public class SurveyStoreImpl implements SurveyStore {
 		iList.add(survey.getSurveyNail());
 		iList.add(survey.getSurveyImmunity());
 		List<ProductVO> pList = session.selectList("SurveyMapper.selectRecommendation", survey);
-		for(String ingredient : iList) {
+		for (String ingredient : iList) {
 			survey.setSurveyDrink(ingredient);
 			List<ProductVO> pList2 = session.selectList("SurveyMapper.selectRecommendation2", survey);
-			for(ProductVO product : pList2) {
-				int i = 0;
-				if (!(pList.get(i).getProductNo() == product.getProductNo())) {
-					pList.add(product);					
+			for (ProductVO product : pList2) {
+				boolean isExist = false;
+				for (int i = 0; i < pList.size(); i++) {
+					if (pList.get(i).getProductNo() == product.getProductNo()) {
+						isExist = true;
+					}
 				}
-				i++;
+				if (!isExist) {
+					pList.add(product);
+				}
 			}
 		}
 		return pList;
@@ -56,6 +61,11 @@ public class SurveyStoreImpl implements SurveyStore {
 	public int getCurrVal(SqlSession session) {
 		int orderNum = session.selectOne("SurveyMapper.getCurrVal");
 		return orderNum;
+	}
+
+	@Override
+	public void insertRecommend(SqlSession session, RecommendVO reco) {
+		session.insert("SurveyMapper.insertRecommend", reco);
 	}
 
 }

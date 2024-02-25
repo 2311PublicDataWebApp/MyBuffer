@@ -43,6 +43,7 @@
                                 <li><a class="dropdown-item" href="/member/logout.do">로그아웃</a></li>
                             </c:if>
                             <c:if test="${memberId eq 'admin' }">
+                            	<li><a class="dropdown-item" href="/notice/list.do">공지 목록</a></li>
                                 <li><a class="dropdown-item" href="/member/list.do">회원 목록</a></li>
                                 <li><a class="dropdown-item" href="/product/list.do">제품 목록</a></li>
                                 <li><hr class="dropdown-divider"></li>
@@ -63,12 +64,12 @@
 				</form>
                 <form action="/member/update.do" method="post" class="border rounded p-4">
                     <div class="mb-3">
-                        <label for="userId" class="form-label">아이디</label>
-                        <input type="text" class="form-control" id="userId" name="userId" value="${member.memberId }">
+                        <label for="memberId" class="form-label">아이디</label>
+                        <input type="text" class="form-control" id="memberId" name="memberId" value="${member.memberId }">
                     </div>
                     <div class="mb-3">
-                        <label for="password" class="form-label">비밀번호</label>
-                        <input type="password" class="form-control" id="password" name="password" value="${member.memberPw }">
+                        <label for="memberPw" class="form-label">비밀번호</label>
+                        <input type="password" class="form-control" id="memberPw" name="memberPw" value="${member.memberPw }">
                     </div>
                     <!-- 비밀번호 확인 등의 필드는 필요하지 않을 때 주석 처리 -->
                     <!-- <div class="mb-3">
@@ -76,24 +77,24 @@
                         <input type="password" class="form-control" id="confirmPassword" name="confirmPassword">
                     </div> -->
                     <div class="mb-3">
-                        <label for="name" class="form-label">이름</label>
-                        <input type="text" class="form-control" id="name" name="name" value="${member.memberName }">
+                        <label for="memberName" class="form-label">이름</label>
+                        <input type="text" class="form-control" id="memberName" name="memberName" value="${member.memberName }">
                     </div>
                     <div class="mb-3">
-                        <label for="address" class="form-label">주소</label>
-                        <input type="text" class="form-control" id="address" name="address" value="${member.memberAddress }">
+                        <label for="memberAddress" class="form-label">주소</label>
+                        <input type="text" class="form-control" id="memberAddress" name="memberAddress" value="${member.memberAddress }">
                     </div>
                     <div class="mb-3">
-                        <label for="email" class="form-label">이메일</label>
-                        <input type="email" class="form-control" id="email" name="email" value="${member.memberEmail }">
+                        <label for="memberEmail" class="form-label">이메일</label>
+                        <input type="email" class="form-control" id="memberEmail" name="memberEmail" value="${member.memberEmail }">
                     </div>
                     <div class="mb-3">
-                        <label for="phone" class="form-label">휴대폰번호</label>
-                        <input type="tel" class="form-control" id="phone" name="phone" value="${member.memberPhone }">
+                        <label for="memberPhone" class="form-label">휴대폰번호</label>
+                        <input type="tel" class="form-control" id="memberPhone" name="memberPhone" value="${member.memberPhone }">
                     </div>
                     <div class="mb-3">
-                        <label for="birthday" class="form-label">생년월일</label>
-                        <input type="date" class="form-control" id="birthday" name="birthday" value="${member.memberDate }">
+                        <label for="memberDate" class="form-label">생년월일</label>
+                        <input type="date" class="form-control" id="memberDate" name="memberDate" value="${member.memberDate }">
                     </div>
                     <div class="text-center">
                         <button type="submit" class="btn btn-primary">다음</button>

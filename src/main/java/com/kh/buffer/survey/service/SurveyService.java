@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.kh.buffer.product.domain.ProductVO;
 import com.kh.buffer.survey.domain.OrderVO;
+import com.kh.buffer.survey.domain.RecommendVO;
 import com.kh.buffer.survey.domain.SurveyVO;
 
 public interface SurveyService {
@@ -31,5 +32,11 @@ public interface SurveyService {
 
 	// 직전에 입력한 데이터 번호 가져오기
 	int getCurrVal();
+
+	/**
+	 * 추천 제품 저장 Service
+	 * @param reco
+	 */
+	void insertRecommend(RecommendVO reco);
 
 }

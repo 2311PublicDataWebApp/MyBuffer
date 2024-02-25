@@ -44,6 +44,7 @@
                                 <li><a class="dropdown-item" href="/member/logout.do">로그아웃</a></li>
                             </c:if>
                             <c:if test="${memberId eq 'admin' }">
+                            	<li><a class="dropdown-item" href="/notice/list.do">공지 목록</a></li>
                                 <li><a class="dropdown-item" href="/member/list.do">회원 목록</a></li>
                                 <li><a class="dropdown-item" href="/product/list.do">제품 목록</a></li>
                                 <li><hr class="dropdown-divider"></li>
@@ -93,7 +94,7 @@
 												</button>
 	                                            <ul class="dropdown-menu">
 	                                                <li>
-	                                                    <a class="dropdown-item" type="button" href="/member/updatemember.do?memberId=${member.memberId }">회원 수정</a>
+	                                                    <a class="dropdown-item" type="button" href="/member/modify.do?memberId=${member.memberId }">회원 수정</a>
 	                                                </li>
 	                                                <li>
 	                                                    <button class="dropdown-item" type="button" onclick="deleteMember('${member.memberId }');">회원 삭제</button>
