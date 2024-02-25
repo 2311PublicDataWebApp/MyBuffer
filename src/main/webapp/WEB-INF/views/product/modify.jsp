@@ -45,8 +45,9 @@
 								<li><a class="dropdown-item" href="/member/logout.do">로그아웃</a></li>
 							</c:if>
 							<c:if test="${memberId eq 'admin' }">
-								<li><a class="dropdown-item" href="/member/list.do">회원 목록</a></li>
+								<li><a class="dropdown-item" href="/notice/list.do">공지 목록</a></li>
 								<li><a class="dropdown-item" href="/product/list.do">제품 목록</a></li>
+								<li><a class="dropdown-item" href="/member/list.do">회원 목록</a></li>
 								<li><hr class="dropdown-divider"></li>
 								<li><a class="dropdown-item" href="/member/logout.do">로그아웃</a></li>
 							</c:if>
@@ -110,7 +111,7 @@
 									</div>
 								</div>
 								<div class="row mb-4 justify-content-center">
-									<label for="gender" class="col-sm-2 col-form-label">연령대코드</label>
+									<label for="gender" class="col-sm-2 col-form-label">성별코드</label>
 									<div class="col-sm-7">
 										<input type="text" class="form-control" name="gender" id="gender" placeholder="M / F" value="${product.gender }">
 									</div>

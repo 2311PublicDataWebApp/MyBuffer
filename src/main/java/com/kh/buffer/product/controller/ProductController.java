@@ -32,6 +32,63 @@ public class ProductController {
 	private ProductService pService;
 
 	/**
+	 * 제품 리스트 목록 GET
+	 */
+	@RequestMapping(value = "/product/list.do", method = RequestMethod.GET)
+	public String showProductList(Model model
+			, HttpServletRequest request
+			, @RequestParam(value = "page", required = false, defaultValue = "1") Integer currentPage) {
+		try {
+			int totalCount = pService.getTotalCount();
+			PageInfo pInfo = this.getPageInfo(currentPage, totalCount);
+			List<ProductVO> pList = pService.selectProductList(pInfo);
+			String rPath = request.getSession().getServletContext().getRealPath("resources");
+			String imgFilepath = rPath + "/puploadFiles/";
+			if (!pList.isEmpty()) {
+				model.addAttribute("pList", pList);
+				model.addAttribute("pInfo", pInfo);
+				model.addAttribute("imgFilepath", imgFilepath);
+			} else {
+				model.addAttribute("pList", null);
+			}
+			return "product/list";
+		} catch (Exception e) {
+			model.addAttribute("msg", e.getMessage());
+			return "common/errorPage";
+		}
+	
+	}
+
+	/**
+	 * 제품 검색
+	 */
+		@RequestMapping(value = "/product/search.do", method = RequestMethod.GET)
+		public ModelAndView searchProductList(ModelAndView mv
+				, @RequestParam("searchCondition") String searchCondition
+				, @RequestParam("searchKeyword") String searchKeyword
+				, @RequestParam(value = "page", required = false, defaultValue = "1")
+				Integer currentPage) {
+			try {
+				Map<String, String> paramMap = new HashMap<String, String>();
+				searchKeyword = searchKeyword.toLowerCase();
+				paramMap.put("searchCondition", searchCondition);
+				paramMap.put("searchKeyword", searchKeyword);
+				int totalCount = pService.getTotalCount(paramMap);
+				PageInfo pInfo = this.getPageInfo(currentPage, totalCount);
+				List<ProductVO> productList = pService.selectProductsByKeyword(pInfo, paramMap);
+				mv.addObject("searchCondition", searchCondition);
+				mv.addObject("searchKeyword", searchKeyword);
+				mv.addObject("pList", productList);
+				mv.addObject("pInfo", pInfo);
+				mv.setViewName("product/search");
+			} catch (Exception e) {
+				mv.addObject("msg", e.getMessage());
+				mv.setViewName("common/errorPage");
+			}
+			return mv;
+		}
+
+	/**
 	 * 제품 등록 페이지, /product/insert.kr을 주소표시줄에 입력하면 insert.jsp가 나타나도록
 	 */
 	@RequestMapping(value = "/product/insert.do", method = RequestMethod.GET)
@@ -97,35 +154,6 @@ public class ProductController {
 		}
 		return mv;
 	}
-	
-	/**
-	 * 제품 검색
-	 */
-		@RequestMapping(value = "/product/search.do", method = RequestMethod.GET)
-		public ModelAndView searchProductList(ModelAndView mv
-				, @RequestParam("searchCondition") String searchCondition
-				, @RequestParam("searchKeyword") String searchKeyword
-				, @RequestParam(value = "page", required = false, defaultValue = "1")
-				Integer currentPage) {
-			try {
-				Map<String, String> paramMap = new HashMap<String, String>();
-				searchKeyword = searchKeyword.toLowerCase();
-				paramMap.put("searchCondition", searchCondition);
-				paramMap.put("searchKeyword", searchKeyword);
-				int totalCount = pService.getTotalCount(paramMap);
-				PageInfo pInfo = this.getPageInfo(currentPage, totalCount);
-				List<ProductVO> productList = pService.selectProductsByKeyword(pInfo, paramMap);
-				mv.addObject("searchCondition", searchCondition);
-				mv.addObject("searchKeyword", searchKeyword);
-				mv.addObject("pList", productList);
-				mv.addObject("pInfo", pInfo);
-				mv.setViewName("product/search");
-			} catch (Exception e) {
-				mv.addObject("msg", e.getMessage());
-				mv.setViewName("common/errorPage");
-			}
-			return mv;
-		}
 	
 	/**
 	 * 제품 수정 페이지
@@ -194,34 +222,6 @@ public class ProductController {
 		return mv;
 	}
 	
-	/**
-	 * 제품 리스트 목록 GET
-	 */
-	@RequestMapping(value = "/product/list.do", method = RequestMethod.GET)
-	public String showProductList(Model model
-			, HttpServletRequest request
-			, @RequestParam(value = "page", required = false, defaultValue = "1") Integer currentPage) {
-		try {
-			int totalCount = pService.getTotalCount();
-			PageInfo pInfo = this.getPageInfo(currentPage, totalCount);
-			List<ProductVO> pList = pService.selectProductList(pInfo);
-			String rPath = request.getSession().getServletContext().getRealPath("resources");
-			String imgFilepath = rPath + "/puploadFiles/";
-			if (!pList.isEmpty()) {
-				model.addAttribute("pList", pList);
-				model.addAttribute("pInfo", pInfo);
-				model.addAttribute("imgFilepath", imgFilepath);
-			} else {
-				model.addAttribute("pList", null);
-			}
-			return "product/list";
-		} catch (Exception e) {
-			model.addAttribute("msg", e.getMessage());
-			return "common/errorPage";
-		}
-
-	}
-
 	/**
 	 * 첨부파일 저장
 	 */
