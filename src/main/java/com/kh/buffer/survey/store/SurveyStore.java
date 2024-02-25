@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 
 import com.kh.buffer.product.domain.ProductVO;
 import com.kh.buffer.survey.domain.OrderVO;
+import com.kh.buffer.survey.domain.RecommendVO;
 import com.kh.buffer.survey.domain.SurveyVO;
 
 public interface SurveyStore {
@@ -36,5 +37,12 @@ public interface SurveyStore {
 
 	// 직전에 입력한 데이터 가져오기
 	int getCurrVal(SqlSession session);
+
+	/**
+	 * 추천 제품 저장 Store
+	 * @param session
+	 * @param reco
+	 */
+	void insertRecommend(SqlSession session, RecommendVO reco);
 
 }

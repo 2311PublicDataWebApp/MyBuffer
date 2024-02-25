@@ -43,11 +43,12 @@
                                 <li><a class="dropdown-item" href="/member/logout.do">로그아웃</a></li>
                             </c:if>
                             <c:if test="${memberId eq 'admin' }">
-                                <li><a class="dropdown-item" href="/member/list.do">회원 목록</a></li>
-                                <li><a class="dropdown-item" href="/product/list.do">제품 목록</a></li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="/member/logout.do">로그아웃</a></li>
-                            </c:if>
+								<li><a class="dropdown-item" href="/notice/list.do">공지 목록</a></li>
+								<li><a class="dropdown-item" href="/product/list.do">제품 목록</a></li>
+								<li><a class="dropdown-item" href="/member/list.do">회원 목록</a></li>
+								<li><hr class="dropdown-divider"></li>
+								<li><a class="dropdown-item" href="/member/logout.do">로그아웃</a></li>
+							</c:if>
                         </c:if>
                     </ul>
                 </div>
@@ -62,7 +63,7 @@
 								<img src="../resources/puploadFiles/${product.productFileRename }" class="card-img-top" alt="No Image" >
 								<div class="card-body">
 									<p class="card-text text-center">
-										<a href="/product/productDetail.kr?productNo=${product.productNo }" class="link-dark link-offset-2 link-underline-opacity-0">${product.productName }</a>
+										<a href="/product/productDetail.do?productNo=${product.productNo }" class="link-dark link-offset-2 link-underline-opacity-0">${product.productName }</a>
 									</p>
 								</div>
 							</div>

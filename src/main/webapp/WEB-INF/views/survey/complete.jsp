@@ -43,6 +43,7 @@
                                 <li><a class="dropdown-item" href="/member/logout.do">로그아웃</a></li>
                             </c:if>
                             <c:if test="${memberId eq 'admin' }">
+                            	<li><a class="dropdown-item" href="/notice/list.do">공지 목록</a></li>
                                 <li><a class="dropdown-item" href="/member/list.do">회원 목록</a></li>
                                 <li><a class="dropdown-item" href="/product/list.do">제품 목록</a></li>
                                 <li><hr class="dropdown-divider"></li>
@@ -54,7 +55,7 @@
 			</nav>
 		</header>
         <div class="container">
-            <main class="my-5">
+            <main class="m-5 px-5">
 				<table class="table">
                     <thead class="table-light">
                         <tr>
@@ -88,6 +89,9 @@
                         </tr>
                     </tbody>
                 </table>
+                <div class="my-4 d-grid gap-5 d-md-flex justify-content-md-center">
+					<button type="button" onclick="gotoMain();" class="btn btn-lg rounded-pill shadow-sm" style="width: 220px; height: 60px; background-color: #53DBDB; color: #ffffff;">홈으로</button>
+				</div>
             </main>
         </div>
         <footer class="d-flex flex-wrap justify-content-between align-items-center py-5 border-top" style="background-color: #F9FFFD; --bs-gutter-x: 0;">
@@ -101,5 +105,10 @@
             <div class="col-md-2 d-flex justify-content-center align-items-center"></div>
         </footer>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+        <script>
+        	function gotoMain() {
+        		location.href="/";
+        	}
+        </script>
     </body>
 </html>

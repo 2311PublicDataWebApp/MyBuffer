@@ -12,6 +12,12 @@ public class RecommendVO {
 		super();
 	}
 
+	public RecommendVO(String memberId, int productNo) {
+		super();
+		this.memberId = memberId;
+		this.productNo = productNo;
+	}
+
 	public int getSurveyNo() {
 		return surveyNo;
 	}
