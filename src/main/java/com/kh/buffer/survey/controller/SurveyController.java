@@ -42,9 +42,11 @@ public class SurveyController {
 		try {
 			List<ProductVO> pList = sService.submitSurvey(survey);
 			if (pList != null) {
-				for(ProductVO product : pList) {
-					RecommendVO reco = new RecommendVO((String) session.getAttribute("memberId"), product.getProductNo());
-					sService.insertRecommend(reco);
+				if (session.getAttribute("memberId") != null) {
+					for(ProductVO product : pList) {
+						RecommendVO reco = new RecommendVO((String) session.getAttribute("memberId"), product.getProductNo());
+						sService.insertRecommend(reco);
+					}					
 				}
 				model.addAttribute("pList", pList);
 			} else {

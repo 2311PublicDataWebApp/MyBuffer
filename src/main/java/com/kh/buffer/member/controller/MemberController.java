@@ -248,7 +248,7 @@ public class MemberController {
 			// 회원탈퇴가 성공했는지 확인
 			if (result > 0) {
 				if ("admin".equals(sessionId)) {
-					return "/";
+					return "redirect:/";
 				} else {
 					return "redirect:/member/logout.do";					
 				}
